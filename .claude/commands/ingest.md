@@ -7,10 +7,12 @@ Scan and process all inbox locations across the project.
 **Before starting:** Read `.claude/workflows/ingest.md` for full workflow rules.
 
 1. Scan all inboxes in order:
-   a. `inbox/INBOX.md` — unprocessed text entries
-   b. `inbox/drop/` — files dropped for general ingest
-   c. `sources/courses/*/inbox/` — course-specific files
-   d. `projects/*/inbox/` — project-specific files
+   a. `inbox/INBOX.md` — global text entries
+   b. `inbox/drop/` — general file drops
+   c. `sources/courses/*/inbox/INBOX.md` — course text entries
+   d. `sources/courses/*/inbox/` — course file drops
+   e. `projects/*/inbox/INBOX.md` — project text entries
+   f. `projects/*/inbox/` — project file drops
 2. For each item found:
    - Read it completely
    - Determine context from inbox location (course/project auto-tagged)
