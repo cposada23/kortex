@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/validate-frontmatter.py\" \"$CLAUDE_TOOL_RESULT_FILE_PATH\""
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/validate-index.py\" \"$CLAUDE_TOOL_RESULT_FILE_PATH\""
+          }
+        ]
+      }
+    ]
+  }
+}
