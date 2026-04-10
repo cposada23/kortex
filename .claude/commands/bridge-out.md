@@ -6,10 +6,11 @@ Write a session note at the end of this session.
 
 Read the conversation history of this session.
 
-1. Create a new file at: output/sessions/YYYY-MM-DD.md
-   (use today's date)
+1. Check if output/sessions/YYYY-MM-DD.md already exists for today's date.
+   - If it does NOT exist: create it with the frontmatter below.
+   - If it DOES exist: skip frontmatter, append a new session block at the end.
 
-2. Write the following block:
+2. Write (or append) the following block:
 
 ---
 title: "Session — YYYY-MM-DD"
@@ -57,5 +58,6 @@ the next session can start executing immediately.]
   Good: "Run /lint in Claude Code and fix the top 3 issues"
   Bad: "Continue exploring memory systems"
 - Do not summarize everything — capture what matters for continuity
-- Never overwrite an existing session file — always use today's date
-- Always update index.md after creating the session file
+- One file per day — append to existing file if today's session file already exists
+- Only add to index.md if a new file was created (not on append)
+- Only add to log.md if a new file was created (not on append)
