@@ -3,9 +3,11 @@
 ## Purpose
 Example project folder. Replace this with your own project.
 
-## Structure
+## Standard Project Structure
 - `references/` — project briefs, brand context, research
-- `prompts/` — project-specific prompts
+- `prompts/` — project-specific prompts, organized by type
+- `content/` — scripts, drafts, campaign plans, video outlines
+- `assets/` — generated images, videos, media files
 - `inbox/` — drop project-related material here for ingest
 
 ## Rules

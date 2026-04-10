@@ -122,14 +122,23 @@ my-knowledge-brain/
 |   +-- drop/        Drop files here (PDFs, articles, transcripts)
 |   +-- processed/   Files move here after ingest
 +-- sources/         Raw immutable material
-|   +-- courses/     Course folders (one per course, each has its own inbox/)
+|   +-- courses/     Course folders (standard structure below)
+|       +-- notes/       Lesson notes, module summaries
+|       +-- assignments/ Homework and exercises
+|       +-- resources/   Reference material, cheat sheets
+|       +-- inbox/       Course-specific inbox for ingest
 +-- wiki/            Synthesized knowledge — the brain
 |   +-- areas/       Ongoing areas of focus
 |   +-- concepts/    Atomic concept pages
 |   +-- tools/       Tools catalog and tutorials
 |   +-- playbooks/   Step-by-step workflows
 |   +-- references/  Reference docs and guides
-+-- projects/        Active project execution (one folder per project)
++-- projects/        Active project execution (standard structure below)
+|   +-- references/  Briefs, brand context, research
+|   +-- prompts/     Project-specific prompts
+|   +-- content/     Scripts, drafts, campaign plans
+|   +-- assets/      Generated images, videos, media
+|   +-- inbox/       Project-specific inbox for ingest
 +-- output/          Query results, lint reports, session notes
 |   +-- sessions/    Hemingway Bridge session notes
 +-- archive/         Superseded documents
