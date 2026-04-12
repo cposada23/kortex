@@ -71,7 +71,17 @@ Append a short pointer entry to log.md:
 If new .md files were created during this session, add them to `index.md`
 under the appropriate section.
 
-### Step 6 — Confirm
+### Step 6 — Check artifact sync triggers
+
+Scan for `artifacts.md` files in projects touched this session.
+For each artifact, check if any files matching its `sync_triggers` patterns
+were changed during this session (use git diff to detect).
+
+If sync-relevant files changed, add a warning to the session notes under
+**Artifact sync needed** and remind the user in the confirmation message:
+"Artifact [name] may need syncing — [list changed trigger files]."
+
+### Step 7 — Confirm
 
 Tell the user: "Bridge written. TODOs updated. See you next session."
 

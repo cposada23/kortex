@@ -10,6 +10,9 @@ Run at the start of every Claude Code session.
    read that area's TODO file in full
 4. Read today's session file if it exists (`output/sessions/YYYY-MM-DD.md`)
 5. Read `log.md` — last 5 entries for recent context
+6. Scan for `artifacts.md` files in active projects (those with in-progress items).
+   For each artifact entry, check if `local_path` exists on disk.
+   If missing, add a warning to the bridge output under **Missing artifacts**.
 
 ## Output format
 
@@ -22,6 +25,9 @@ Run at the start of every Claude Code session.
 **Blocked:**
   [list each blocked item across all areas, with reason]
   (or "Nothing blocked" if none)
+**Missing artifacts:**
+  [list any artifacts whose local_path doesn't exist, with clone command]
+  (or omit this section if all artifacts are present)
 **Suggested next action:** [specific first step — one line, actionable]
 **Files to open:** [specific files relevant to next action]
 **Open questions:** [anything unresolved from last session]
