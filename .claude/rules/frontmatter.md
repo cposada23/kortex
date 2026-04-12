@@ -7,7 +7,7 @@ Exception: CLAUDE.md files and README.md files — skip frontmatter on these.
 
 ```yaml
 title: "Page Title"
-type: concept | reference | playbook | area | project | tool | person | index | inbox
+type: concept | reference | playbook | area | project | tool | person | index | inbox | todo | todo-index
 layer: wiki
 language: en | es | en-es
 tags: [relevant-tags, capa/2-wiki]

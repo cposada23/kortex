@@ -1,12 +1,30 @@
 # /bridge-out — Hemingway Bridge: End of Session
 
-Write a session note at the end of this session.
+Write a session note and update all TODO files at the end of this session.
 
 ## Instructions
 
-Read the conversation history of this session.
+Read the conversation history of this session, then execute all steps below.
 
-1. Check if output/sessions/YYYY-MM-DD.md already exists for today's date.
+### Step 1 — Update TODO files
+
+Identify which project(s), courses, or areas were touched this session.
+For each touched area, update its TODO.md:
+
+- Move completed items to **Done (last 30 days)** with today's date
+- Update in-progress items if status changed
+- Add any new tasks discovered during the session
+- Drop Done items older than 30 days
+- Omit any section that would be empty
+
+### Step 2 — Update root TODO.md
+
+For each area that changed in Step 1, recount the status summary line:
+count in progress, backlog, and blocked items. Update the root TODO.md.
+
+### Step 3 — Write session notes
+
+1. Check if `output/sessions/YYYY-MM-DD.md` already exists for today's date.
    - If it does NOT exist: create it with the frontmatter below.
    - If it DOES exist: skip frontmatter, append a new session block at the end.
 
@@ -42,15 +60,20 @@ the next session can start executing immediately.]
 
 ---
 
-3. Append a short pointer entry to log.md:
-   ## [YYYY-MM-DD] session-end | [topic]
-   See: output/sessions/YYYY-MM-DD.md
+### Step 4 — Update log.md
 
-4. Add the new session file to index.md under ## Output > Sessions
+Append a short pointer entry to log.md:
+  ## [YYYY-MM-DD] session-end | [topic]
+  See: output/sessions/YYYY-MM-DD.md
 
-5. Review todo.md — check off any completed items, add new ones discovered during the session
+### Step 5 — Update index.md
 
-6. Confirm to the user: "Bridge written. See you next session."
+If new .md files were created during this session, add them to `index.md`
+under the appropriate section.
+
+### Step 6 — Confirm
+
+Tell the user: "Bridge written. TODOs updated. See you next session."
 
 ## Rules
 

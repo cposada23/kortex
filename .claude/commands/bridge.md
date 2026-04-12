@@ -4,11 +4,12 @@ Run at the start of every Claude Code session.
 
 ## Steps
 
-1. Read log.md — last 5 entries
-2. Read CLAUDE.md root
-3. Read Auto Memory (/memory)
-4. Read todo.md — open tasks and priorities
-5. Skim index.md for context
+1. Read `CLAUDE.md` — get schema and strategic orientation
+2. Read `TODO.md` (root) — get full picture of all areas and their status
+3. For every entry in the root TODO where status contains "in progress" or "blocked",
+   read that area's TODO file in full
+4. Read today's session file if it exists (`output/sessions/YYYY-MM-DD.md`)
+5. Read `log.md` — last 5 entries for recent context
 
 ## Output format
 
@@ -16,10 +17,12 @@ Run at the start of every Claude Code session.
 ## Session Bridge — [DATE]
 
 **Last session:** [date + topic from log.md]
-**Stopped at:** [exact file and task]
-**Next action:** [specific first step — one line, actionable]
-**Active todos:** [from todo.md — top 3 unchecked items]
-**Active projects:** [from CLAUDE.md Active Priorities]
+**Active work:**
+  [list each in-progress item across all areas, with area name]
+**Blocked:**
+  [list each blocked item across all areas, with reason]
+  (or "Nothing blocked" if none)
+**Suggested next action:** [specific first step — one line, actionable]
 **Files to open:** [specific files relevant to next action]
 **Open questions:** [anything unresolved from last session]
 ```
@@ -31,3 +34,4 @@ Then ask: "Ready to continue? Or do you want to work on something else?"
 - If log.md has no session-end entry: say so and ask what the owner wants to work on
 - Keep the bridge output concise — the goal is orientation in under 60 seconds
 - Do not read every file in the project — targeted reads only
+- Only read TODO files that have in-progress or blocked items (skip pure backlog areas)

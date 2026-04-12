@@ -56,3 +56,5 @@ Commit before any bulk operation. Delete freely — git preserves history.
 ## Active Priorities
 1. [Your first priority]
 2. [Your second priority]
+
+Task details: see [TODO.md](TODO.md) → per-project TODO files.

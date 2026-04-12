@@ -23,7 +23,17 @@ Read this first when looking for relevant content.
 | File | Summary |
 |---|---|
 | inbox/INBOX.md | Quick capture inbox — drop ideas here, processed with /ingest |
-| todo.md | Active tasks, priorities, and backlog — read by /bridge and /bridge-out |
+
+## TODO Files
+
+Hierarchical TODO system — root index points to per-area TODO files.
+
+| File | Summary |
+|---|---|
+| TODO.md | Master index — pointers and status counts for all areas |
+| projects/my-first-project/TODO.md | Example project tasks |
+| sources/courses/my-first-course/TODO.md | Example course progress |
+| wiki/TODO.md | Wiki-level and general tasks |
 
 <!-- SECTION: Output -->
 ## Output

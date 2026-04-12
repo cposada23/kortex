@@ -153,8 +153,59 @@ mi-cerebro/
 |   +-- templates/   Templates para nuevos archivos
 +-- index.md         Catálogo maestro — Claude busca aquí para encontrar todo
 +-- log.md           Log cronológico de operaciones (solo se agrega, nunca se edita)
++-- TODO.md          Índice maestro de tareas — apunta a TODOs por área
 +-- CLAUDE.md        Schema raíz — gobierna todo el comportamiento de Claude
 ```
+
+## Sistema de TODOs
+
+Las tareas se organizan en una jerarquía de archivos TODO.md:
+
+```
+TODO.md (raíz)              ← Índice maestro: solo links y conteos
+  +-- projects/*/TODO.md    ← Tareas por proyecto
+  +-- sources/courses/*/TODO.md  ← Progreso por curso
+  +-- wiki/TODO.md          ← Tareas generales del wiki
+```
+
+- **TODO.md raíz** solo contiene punteros y resúmenes de estado — nunca tareas directas
+- **Cada área tiene su propio TODO.md** con secciones: Blocked, In Progress, Backlog, Done
+- `/bridge` lee los TODOs activos al inicio de cada sesión
+- `/bridge-out` actualiza los TODOs y recuenta el índice al final de cada sesión
+- La sección Done solo guarda los últimos 30 días
+- Las secciones vacías se omiten — si no hay nada bloqueado, no aparece Blocked
+
+### Ejemplo — TODO de proyecto
+
+```md
+# TODO — Mi Proyecto
+
+## In Progress
+- [ ] Escribir primer guión de video — since: 2026-04-12
+
+## Backlog
+- [ ] Definir estructura de contenido
+- [ ] Crear prompts específicos del proyecto
+
+## Done (last 30 days)
+- [x] Definir brief del proyecto — 2026-04-10
+```
+
+### Ejemplo — TODO raíz
+
+```md
+## Projects
+- [mi-proyecto](projects/mi-proyecto/TODO.md)
+  status: 1 in progress, 2 backlog
+
+## Courses
+- [mi-curso](sources/courses/mi-curso/TODO.md)
+  status: 1 backlog
+```
+
+### Agregar un nuevo proyecto o curso
+
+Cuando crees un nuevo proyecto o curso, también crea un `TODO.md` dentro de la carpeta siguiendo el mismo formato. Agrega una línea al `TODO.md` raíz — `/bridge-out` mantiene los conteos automáticamente.
 
 ## Niveles de destilación
 
