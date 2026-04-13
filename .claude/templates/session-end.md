@@ -1,18 +1,6 @@
-## Hemingway Bridge — YYYY-MM-DD
+## Session — YYYY-MM-DD
 
-### Where we left off
-[1-3 sentences. What were we working on? What was the last thing we did?]
-
-### Decisions made
-- [Decision 1 — why]
-- [Decision 2 — why]
-
-### Open threads
-- [Something that came up but wasn't resolved]
-- [Worth revisiting next session]
-
-### Context for next Claude
-[Active project, current step, tools involved, anything non-obvious.]
-
-### Next exact action
-[One sentence. Specific enough to execute immediately without re-reading the whole session.]
+**STATE:** [One sentence — where things stand right now.]
+**DECISIONS:** [Bullet list, max 5 — what changed and why.]
+**NEXT:** [Single concrete next action — specific enough to execute immediately.]
+**BLOCKERS:** [Anything blocking progress. Omit this line if none.]

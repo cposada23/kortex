@@ -1,6 +1,6 @@
 # /bridge-out — Hemingway Bridge: End of Session
 
-Write a session note and update all TODO files at the end of this session.
+Write a compact session note and update all TODO files at the end of this session.
 
 ## Instructions
 
@@ -22,13 +22,24 @@ For each touched area, update its TODO.md:
 For each area that changed in Step 1, recount the status summary line:
 count in progress, backlog, and blocked items. Update the root TODO.md.
 
-### Step 3 — Write session notes
+### Step 3 — Project-to-Wiki check
+
+Before writing session notes, ask:
+
+> "Did this session produce any insight worth promoting to a wiki page?
+> (New concept learned, tool evaluated, decision rationale, pattern discovered)
+> If yes: create or update the wiki page now, before writing the session note."
+
+If the user says yes, create/update the wiki page following normal frontmatter
+and index.md rules, then continue to Step 4.
+
+### Step 4 — Write session notes
 
 1. Check if `output/sessions/YYYY-MM-DD.md` already exists for today's date.
    - If it does NOT exist: create it with the frontmatter below.
    - If it DOES exist: skip frontmatter, append a new session block at the end.
 
-2. Write (or append) the following block:
+2. Write (or append) the following block. **Cap the entire block at ~15 lines.**
 
 ---
 title: "Session — YYYY-MM-DD"
@@ -41,37 +52,25 @@ updated: YYYY-MM-DD
 
 ## Session — YYYY-MM-DD
 
-### Where we left off
-[1-3 sentences. What were we working on? What was the last thing we did?]
-
-### Decisions made
-[Bullet list. What did we decide and why? Include the reasoning, not just the conclusion.]
-
-### Open threads
-[Bullet list. What came up but wasn't resolved? What's worth revisiting?]
-
-### Context for next Claude
-[What does the next session need to know to pick up without re-explanation?
-Include: active project, current level/step, tools involved, anything non-obvious.]
-
-### Next exact action
-[One sentence. The single most concrete next step. Specific enough that
-the next session can start executing immediately.]
+**STATE:** [One sentence — where things stand right now.]
+**DECISIONS:** [Bullet list, max 5 — what changed and why.]
+**NEXT:** [Single concrete next action — specific enough to execute immediately.]
+**BLOCKERS:** [Anything blocking progress. Omit this line if none.]
 
 ---
 
-### Step 4 — Update log.md
+### Step 5 — Update log.md
 
 Append a short pointer entry to log.md:
   ## [YYYY-MM-DD] session-end | [topic]
   See: output/sessions/YYYY-MM-DD.md
 
-### Step 5 — Update index.md
+### Step 6 — Update index.md
 
 If new .md files were created during this session, add them to `index.md`
 under the appropriate section.
 
-### Step 6 — Check artifact sync triggers
+### Step 7 — Check artifact sync triggers
 
 Scan for `artifacts.md` files in projects touched this session.
 For each artifact, check if any files matching its `sync_triggers` patterns
@@ -81,7 +80,7 @@ If sync-relevant files changed, add a warning to the session notes under
 **Artifact sync needed** and remind the user in the confirmation message:
 "Artifact [name] may need syncing — [list changed trigger files]."
 
-### Step 7 — Confirm
+### Step 8 — Confirm
 
 Tell the user: "Bridge written. TODOs updated. See you next session."
 
@@ -89,10 +88,12 @@ Tell the user: "Bridge written. TODOs updated. See you next session."
 
 - Write in the same language the user was using in this session
 - Be specific — vague entries are useless
-- "Next exact action" must be a real action, not a goal
-  Good: "Run /lint in Claude Code and fix the top 3 issues"
-  Bad: "Continue exploring memory systems"
+- "NEXT" must be a real action, not a goal
+  Good: "Run /lint and fix the top 3 issues"
+  Bad: "Continue working on the project"
 - Do not summarize everything — capture what matters for continuity
 - One file per day — append to existing file if today's session file already exists
 - Only add to index.md if a new file was created (not on append)
 - Only add to log.md if a new file was created (not on append)
+- The 4-field format (STATE/DECISIONS/NEXT/BLOCKERS) replaces verbose prose.
+  If you can't say it in 15 lines, you're over-explaining.

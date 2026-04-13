@@ -14,6 +14,12 @@ Run at the start of every Claude Code session.
    For each artifact entry, check if `local_path` exists on disk.
    If missing, add a warning to the bridge output under **Missing artifacts**.
 
+7. **Resurface** — Find the wiki/ page with the oldest `updated:` frontmatter date.
+   Show: title, path, days since last update.
+   Ask: "Still accurate? (y = bump updated date, n = flag for review, skip = move on)"
+   One page per session — keeps the wiki alive without dedicated review sprints.
+   Threshold is configurable: default 60 days. Adjust based on wiki size and session frequency.
+
 ## Output format
 
 ```
