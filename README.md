@@ -114,6 +114,7 @@ Construye estos cuatro hábitos y el sistema crece solo:
 | `/bridge-out` | **Fin de sesión.** Crea un Hemingway Bridge — captura dónde paraste y la siguiente acción exacta. |
 | `/ingest` | **Procesa todos los inboxes.** Escanea inboxes global, de cursos y de proyectos. Crea páginas wiki. Actualiza el índice. |
 | `/lint` | **Revisión de salud mensual.** Encuentra páginas huérfanas, deuda de destilación, contenido desactualizado, links rotos. |
+| `/query` | **Consulta al knowledge base.** Haz una pregunta, busca en el wiki, sintetiza una respuesta. |
 | `/safe-change` | **Workflow de branch.** Crea una rama, hace cambios, muestra resumen, mergea con tu aprobación. |
 
 ## Estructura de carpetas
@@ -135,6 +136,7 @@ mi-cerebro/
 |   +-- concepts/    Páginas de conceptos atómicos
 |   +-- tools/       Catálogo de herramientas y tutoriales
 |   +-- playbooks/   Workflows paso a paso
+|   +-- decisions/   Decisiones de arquitectura y estrategia
 |   +-- references/  Documentos de referencia y guías
 +-- projects/        Ejecución de proyectos activos (estructura estándar)
 |   +-- references/  Briefs, contexto de marca, investigación
@@ -148,12 +150,11 @@ mi-cerebro/
 +-- .claude/         Schema del sistema (Capa 3)
 |   +-- commands/    Slash commands (/bridge, /ingest, /lint, etc.)
 |   +-- rules/       Reglas operacionales (frontmatter, links, idioma)
-|   +-- workflows/   Definiciones de workflows completos (cargados bajo demanda)
 |   +-- hooks/       Scripts de validación (frontmatter, links, índice)
 |   +-- templates/   Templates para nuevos archivos
 +-- index.md         Catálogo maestro — Claude busca aquí para encontrar todo
 +-- log.md           Log cronológico de operaciones (solo se agrega, nunca se edita)
-+-- TODO.md          Índice maestro de tareas — apunta a TODOs por área
++-- TODO.md          Índice maestro de tareas — apunta a TODOs por área/proyecto
 +-- CLAUDE.md        Schema raíz — gobierna todo el comportamiento de Claude
 ```
 

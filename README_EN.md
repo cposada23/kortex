@@ -111,6 +111,7 @@ Build these four habits and the system compounds on its own:
 | `/bridge-out` | **End of session.** Creates a Hemingway Bridge — captures where you stopped and the exact next action. |
 | `/ingest` | **Process all inboxes.** Scans global, course, and project inboxes. Creates wiki pages. Updates index. |
 | `/lint` | **Monthly health check.** Finds orphan pages, distillation debt, stale content, broken links. |
+| `/query` | **Knowledge base query.** Asks a question, searches the wiki, synthesizes an answer. |
 | `/safe-change` | **Branch workflow.** Creates a feature branch, makes changes, shows summary, merges on approval. |
 
 ## Folder Structure
@@ -132,6 +133,7 @@ my-knowledge-brain/
 |   +-- concepts/    Atomic concept pages
 |   +-- tools/       Tools catalog and tutorials
 |   +-- playbooks/   Step-by-step workflows
+|   +-- decisions/   Architecture and strategy decisions
 |   +-- references/  Reference docs and guides
 +-- projects/        Active project execution (standard structure below)
 |   +-- references/  Briefs, brand context, research
@@ -145,7 +147,6 @@ my-knowledge-brain/
 +-- .claude/         System schema (Layer 3)
 |   +-- commands/    Slash commands (/bridge, /ingest, /lint, etc.)
 |   +-- rules/       Operational rules (frontmatter, links, language)
-|   +-- workflows/   Full workflow definitions (loaded on demand)
 |   +-- hooks/       Validation scripts (frontmatter, links, index)
 |   +-- templates/   Page templates for new files
 +-- index.md         Master catalog — Claude reads this to find anything
