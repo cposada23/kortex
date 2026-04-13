@@ -8,39 +8,44 @@ Use this command for any significant file operation.
    format: feature/short-description (lowercase, hyphens)
 3. Run: git checkout -b [branch-name]
 4. Execute the requested changes on this branch
-5. Run: git add . && git commit -m "description of changes"
-6. Show the user a clear summary of everything that changed
-7. Ask: "Everything looks good? Type YES to merge to main 
-   or NO to go back"
-8. If YES:
-   - Append entry to log.md first
+   (edits, moves, writes — but do NOT git add or commit yet)
+5. Show the user a clear summary of everything that changed
+6. Ask: "Review the changes in your IDE, then type YES to 
+   merge to main or NO to go back"
+   (The user reviews the actual files in their editor —
+   much easier than reading a terminal diff)
+7. If YES:
+   - git add and commit the changes
+   - Append entry to log.md
    - git add . && git commit -m "update log.md"
    - git checkout main
    - git merge [branch-name]
    - git push
    - git branch -d [branch-name]
-9. Update TODOs:
+8. Update TODOs:
    - Check which project(s) or areas were affected by the merge
    - For each affected area, update its TODO.md:
      move completed items to Done, update in-progress items
    - Update root TODO.md counts to match
    - git add and commit TODO changes
    - git push
-10. Run post-merge checks:
+9. Run post-merge checks:
    - Check git diff to see what changed
    - If any project has an `artifacts.md`, check if changed files
      match sync_triggers — warn if so
-11. Confirm:
+10. Confirm:
    "Merged and pushed to main successfully.
    log.md updated.
    TODOs updated: [list TODO files changed, or 'No TODO changes needed']
    [Artifact sync warnings if any]"
-12. If NO:
-   - git checkout main
-   - Ask the user: "Do you want to delete the branch 
-     [branch-name] or keep it for later?"
-   - If delete: git branch -D [branch-name]
-   - If keep: confirm branch name so user can return to it
+11. If NO:
+   - Discard ALL changes and restore to pre-branch state:
+     git checkout main -- .
+     git clean -fd
+     git checkout main
+     git branch -D [branch-name]
+   - Confirm: "All changes discarded. Back on main, 
+     exactly as before."
 
 ## Rules
 - Always create a branch before any bulk operation
