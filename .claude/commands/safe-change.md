@@ -19,15 +19,23 @@ Use this command for any significant file operation.
    - git merge [branch-name]
    - git push
    - git branch -d [branch-name]
-9. Run post-merge checks:
+9. Update TODOs:
+   - Check which project(s) or areas were affected by the merge
+   - For each affected area, update its TODO.md:
+     move completed items to Done, update in-progress items
+   - Update root TODO.md counts to match
+   - git add and commit TODO changes
+   - git push
+10. Run post-merge checks:
    - Check git diff to see what changed
    - If any project has an `artifacts.md`, check if changed files
      match sync_triggers — warn if so
-10. Confirm:
+11. Confirm:
    "Merged and pushed to main successfully.
    log.md updated.
+   TODOs updated: [list TODO files changed, or 'No TODO changes needed']
    [Artifact sync warnings if any]"
-11. If NO:
+12. If NO:
    - git checkout main
    - Ask the user: "Do you want to delete the branch 
      [branch-name] or keep it for later?"
