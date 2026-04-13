@@ -17,9 +17,11 @@ Run monthly. Output goes to output/lint-YYYY-MM-DD.md.
 
 1. Read index.md — get full file list
 2. Run all 8 checks above
-3. Write report to output/lint-YYYY-MM-DD.md
-4. Add report to index.md under Output section
-5. Append to log.md: `## [DATE] lint | Health check complete`
+3. **Log rotation** — if log.md has entries older than 90 days, move them to
+   `output/archive/log-YYYY-Q[N].md` (create folder if needed). Keep only last 90 days in active log.
+4. Write report to output/lint-YYYY-MM-DD.md
+5. Add report to index.md under Output section
+6. Append to log.md: `## [DATE] lint | Health check complete`
 
 ## Report format
 

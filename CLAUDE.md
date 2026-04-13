@@ -53,6 +53,9 @@ On-demand — loaded when invoked, not on every conversation.
 - .claude/commands/bridge-out.md — session end / Hemingway bridge
 - .claude/commands/safe-change.md — branched change workflow
 
+## Log Rotation
+log.md is append-only. When /lint runs, entries older than 90 days move to output/archive/log-YYYY-Q[N].md.
+
 ## Git Policy
 Commit before any bulk operation. Delete freely — git preserves history.
 
