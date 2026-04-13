@@ -20,7 +20,7 @@ Schema version 1.0. See output/schema-changelog.md for history.
     /projects   PROJECT ZONE     Active execution per project
     /output     OUTPUT ZONE      Filed query results, drafts, reports
 
-Layer 3 — The Schema: this file + .claude/rules/ + .claude/workflows/
+Layer 3 — The Schema: this file + .claude/rules/ + .claude/commands/
 
 ## File Structure
 - /sources/courses → raw course material (immutable, Layer 1)
@@ -44,11 +44,14 @@ Skip on CLAUDE.md and README.md only.
 All internal links use relative markdown: `[text](path/to/file.md)`.
 No wikilinks. Pre-commit hook blocks broken links.
 
-## Workflows
-On-demand — loaded by commands when needed, not on every conversation.
-- .claude/workflows/ingest.md — distributed inbox processing
-- .claude/workflows/query.md — query + compounding loop
-- .claude/workflows/lint.md — monthly health check
+## Commands
+On-demand — loaded when invoked, not on every conversation.
+- .claude/commands/ingest.md — distributed inbox processing
+- .claude/commands/query.md — query + compounding loop
+- .claude/commands/lint.md — monthly health check
+- .claude/commands/bridge.md — session start ritual
+- .claude/commands/bridge-out.md — session end / Hemingway bridge
+- .claude/commands/safe-change.md — branched change workflow
 
 ## Git Policy
 Commit before any bulk operation. Delete freely — git preserves history.

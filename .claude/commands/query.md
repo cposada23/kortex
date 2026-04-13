@@ -1,8 +1,8 @@
-# Query Workflow
+# /query — Knowledge Base Query (compounding loop)
 
 Run when answering a question about any topic in the knowledge base.
 
-## Workflow (compounding loop)
+## Workflow
 
 1. Read only the relevant section of index.md using `<!-- SECTION: X -->` markers (Capture, Output, Schema, Sources, Wiki, Projects, Archive) — never read the whole file
 2. Read those specific pages (not everything — targeted reads only)
