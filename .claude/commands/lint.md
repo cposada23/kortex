@@ -13,11 +13,12 @@ Run monthly. Output goes to output/lint-YYYY-MM-DD.md.
 7. **Index gaps** — .md files in the project not listed in index.md
 8. **Contradictions** — claims in one page that conflict with another page
 9. **Orphan decisions** — pages in wiki/decisions/ not linked from any project or wiki page
+10. **Deprecated fields** — pages still using `related:` instead of `related_paths:` (list all, for opportunistic migration)
 
 ## Steps
 
 1. Read index.md — get full file list
-2. Run all 9 checks above
+2. Run all 10 checks above
 3. **Log rotation** — if log.md has entries older than 90 days, move them to
    `output/archive/log-YYYY-Q[N].md` (create folder if needed). Keep only last 90 days in active log.
 4. Write report to output/lint-YYYY-MM-DD.md
