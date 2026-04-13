@@ -28,9 +28,12 @@ Before writing session notes, ask:
 
 > "Did this session produce any insight worth promoting to a wiki page?
 > (New concept learned, tool evaluated, decision rationale, pattern discovered)
-> If yes: create or update the wiki page now, before writing the session note."
+> If yes: create or update the wiki page now, before writing the session note.
+>
+> Did this session produce a significant decision? If yes: create a page in
+> wiki/decisions/ (title, date, why, what it affects, alternatives considered, outcome)."
 
-If the user says yes, create/update the wiki page following normal frontmatter
+If the user says yes to either, create/update the pages following normal frontmatter
 and index.md rules, then continue to Step 4.
 
 ### Step 4 — Write session notes

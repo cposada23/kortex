@@ -27,6 +27,7 @@ As your wiki grows, add subfolders and document their special rules here:
 | `tools/` | Tool catalog + tutorials | Two-tier: catalog entries (short) vs tutorials (full guides). |
 | `areas/` | Operational pages, learning paths | Operational logs are human-facing — plain language. |
 | `playbooks/` | How-to guides, prompt tools | Interactive tools (HERRAMIENTA_*) are instructions for AI, not static docs. |
+| `decisions/` | Architecture and strategy decisions | One page per significant decision: why, what it affects, alternatives. Created during /bridge-out. |
 | `references/` | Glossary, foundational documents | Add freely. Read when needed for context. |
 
 ## Relationships

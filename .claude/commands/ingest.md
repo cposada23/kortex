@@ -92,6 +92,25 @@ Total: X items processed, Y pages created, Z updated, W skipped
 
 Ask if any skipped items should be reconsidered.
 
+## Asset sidecar pattern
+
+For binary assets (PNG, MP4, PDF, etc.) that are kept rather than ingested into wiki pages,
+create a `[filename].meta.md` sidecar file in the same directory:
+
+```yaml
+---
+title: "description of the asset"
+asset_type: image | video | audio | document
+created: YYYY-MM-DD
+project: project-name
+generated_by: "tool name + prompt (if AI-generated)"
+tags: [relevant-tags]
+---
+```
+
+This is a convention, not enforced by hooks. Create sidecars when assets are added
+during ingest or when the user drops binary files into the project.
+
 ## Targeted ingest
 
 If the user points to a specific file (e.g., "ingest sources/courses/my-course/lesson-5.pdf"),
