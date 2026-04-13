@@ -23,10 +23,11 @@ Use grep to find references: `grep -r "FILENAME.md" --include="*.md"`
 - Always include the .md extension
 - Count `../` levels carefully — verify mentally that the path resolves
 
-## Frontmatter
+## Frontmatter cross-references
 
-- Use `related_paths:` (not `related:`) for cross-references
-- Each entry is a relative path to the target file
+- Use `related_paths:` for all frontmatter cross-references
+- Each entry is a relative path from the source file's directory
+- The old `related:` field (Obsidian wikilinks) is deprecated — do not add new ones
 - Format as a YAML list:
   ```yaml
   related_paths:

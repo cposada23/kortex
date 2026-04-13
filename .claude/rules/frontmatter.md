@@ -19,8 +19,9 @@ updated: YYYY-MM-DD
 ```yaml
 status: active | draft | archived
 distillation_level: 0-4
-related: [[Wikilink]], [[Another]]   # Obsidian wikilinks — no path, no .md extension
-related_paths: relative/path.md      # for README files and non-wiki links
+related_paths:                        # cross-references as relative paths
+  - ../concepts/strategy/topic.md
+  - ../../tools/tool-name.md
 course: course-name
 step: step-name
 project: project-name
@@ -57,7 +58,9 @@ Required on all wiki pages in /wiki. Used by /lint to track distillation debt.
 - `capa/2-wiki` — synthesized wiki pages (/wiki)
 - `capa/3-proyecto` — applied project files (/projects)
 
-## Wikilinks rule
+## Cross-references rule
 
-- `related` uses `[[FILENAME]]` format — filename only, no path, no .md extension
-- README files must NOT appear in `related`; use `related_paths` only
+- Use `related_paths:` with relative paths for all frontmatter cross-references
+- Each entry is a relative path from the source file's directory
+- The old `related:` field (Obsidian wikilinks) is deprecated — do not use on new pages
+- Existing pages with `related:` will be migrated opportunistically when touched

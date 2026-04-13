@@ -6,7 +6,7 @@ language: en
 tags: [area, capa/2-wiki]
 updated: YYYY-MM-DD
 distillation_level: 3
-related: []
+related_paths: []
 ---
 
 # Area: Name

@@ -6,7 +6,7 @@ language: en
 tags: [tag1, tag2, capa/2-wiki]
 updated: YYYY-MM-DD
 distillation_level: 2
-related: []
+related_paths: []
 ---
 
 # Concept Name
