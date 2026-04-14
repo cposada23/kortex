@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """
 Frontmatter validator hook for Claude Code.
-Runs after any .md file is written. Validates required fields.
 
-Mode:
-  - HARD dirs (wiki/, output/): exits 1 on failure → blocks the Write
-  - SOFT dirs (everything else): prints warning only
-  - Skipped files: CLAUDE.md, README.md, INBOX.md, log.md, index.md
+Modes:
+  1. Single file (PostWrite hook): python3 validate-frontmatter.py <filepath>
+     - HARD dirs (wiki/, output/): exits 1 on failure → blocks the Write
+     - SOFT dirs (everything else): prints warning only
+  2. Batch/pre-commit: python3 validate-frontmatter.py --staged
+     - Validates all staged .md files
+     - Exits 1 if any HARD dir file fails (blocks commit)
+     - Prints warnings for SOFT dir files
+
+Skipped files: CLAUDE.md, README.md, INBOX.md, log.md, index.md
 """
 import sys
 import os
+import subprocess
 
 REQUIRED_FIELDS = ["title", "type", "layer", "language", "tags", "updated"]
 SKIP_PATTERNS = ["CLAUDE.md", "README.md", "INBOX.md", "log.md", "index.md"]
@@ -68,6 +74,48 @@ def check_file(filepath):
     return 0
 
 
+def get_staged_md_files():
+    """Return list of staged .md files (for pre-commit use)."""
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
+        capture_output=True, text=True
+    )
+    root = subprocess.check_output(
+        ["git", "rev-parse", "--show-toplevel"], text=True
+    ).strip()
+    return [
+        os.path.join(root, f)
+        for f in result.stdout.strip().split("\n")
+        if f.endswith(".md") and f
+    ]
+
+
+def check_staged():
+    """Validate frontmatter on all staged .md files. Return exit code."""
+    files = get_staged_md_files()
+    if not files:
+        return 0
+
+    hard_failures = 0
+    soft_warnings = 0
+
+    for filepath in files:
+        result = check_file(filepath)
+        if result == 1:
+            hard_failures += 1
+
+    if hard_failures:
+        print(f"\n❌ FRONTMATTER VALIDATION FAILED — {hard_failures} file(s) "
+              f"in hard-enforced dirs (wiki/, output/)")
+        print("   Fix frontmatter, then try committing again.\n")
+        return 1
+
+    return 0
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        sys.exit(check_file(sys.argv[1]))
+        if sys.argv[1] == "--staged":
+            sys.exit(check_staged())
+        else:
+            sys.exit(check_file(sys.argv[1]))

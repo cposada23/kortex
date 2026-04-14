@@ -78,9 +78,13 @@ Tú agregas material crudo. Claude lo lee, lo destila en páginas wiki, las cone
 git clone <url-de-tu-repo> mi-cerebro
 cd mi-cerebro
 
-# 2. Instala el hook de pre-commit (valida links en cada commit)
-echo '#!/bin/sh' > .git/hooks/pre-commit
-echo 'python3 "$(git rev-parse --show-toplevel)/.claude/hooks/validate-links.py"' >> .git/hooks/pre-commit
+# 2. Instala el hook de pre-commit (valida links + frontmatter en cada commit)
+cat > .git/hooks/pre-commit << 'HOOK'
+#!/bin/sh
+ROOT="$(git rev-parse --show-toplevel)"
+python3 "$ROOT/.claude/hooks/validate-links.py" || exit 1
+python3 "$ROOT/.claude/hooks/validate-frontmatter.py" --staged
+HOOK
 chmod +x .git/hooks/pre-commit
 
 # 3. Personaliza CLAUDE.md
