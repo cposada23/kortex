@@ -65,7 +65,7 @@ You add raw material. Claude reads it, distills it into wiki pages, connects the
 | [Claude Code](https://claude.ai/claude-code) | Yes | Primary interface — reads, writes, and maintains the knowledge base |
 | [Git](https://git-scm.com/) | Yes | Version control and safety net |
 | Python 3 | Yes | Runs validation hooks (frontmatter, links) |
-| [Obsidian](https://obsidian.md/) | Optional | Visual interface for browsing wiki pages |
+| Any markdown editor (VS Code, Obsidian, etc.) | Optional | Browsing and editing wiki pages |
 
 ### Setup
 
@@ -204,7 +204,7 @@ Then run `/ingest`.
 |---|---|
 | Edit files in `/sources` | Layer 1 is immutable. Synthesize into `/wiki` instead. |
 | Put query results in `/projects` | `/projects` is for execution. Query results go to `/output`. |
-| Use wikilinks `[[like this]]` | They only work in Obsidian. Use `[text](relative/path.md)` instead. |
+| Use wikilinks `[[like this]]` | They aren't portable. Use `[text](relative/path.md)` instead. |
 | Create a `.md` file without indexing | The auto-index rule ensures Claude can find everything via `index.md`. |
 | Skip frontmatter | Every `.md` file (except CLAUDE.md/README.md) needs YAML frontmatter. |
 | Delete files without committing first | Git is the safety net. Commit, then delete freely. |

@@ -68,7 +68,7 @@ Tú agregas material crudo. Claude lo lee, lo destila en páginas wiki, las cone
 | [Plan Pro de Claude](https://claude.ai/pricing) | Sí | Claude Code requiere suscripción Pro ($20/mes) |
 | [Git](https://git-scm.com/) | Sí | Control de versiones y red de seguridad |
 | [Node.js](https://nodejs.org/) | Sí | Necesario para instalar Claude Code (`npm install -g @anthropic-ai/claude-code`) |
-| [Obsidian](https://obsidian.md/) | Opcional | Interfaz visual para navegar las páginas wiki |
+| Editor de markdown (VS Code, Obsidian, etc.) | Opcional | Navegar y editar páginas wiki |
 
 ### Instalación
 
@@ -258,7 +258,7 @@ Luego ejecuta `/ingest`.
 |---|---|
 | Editar archivos en `/sources` | La Capa 1 es inmutable. Sintetiza en `/wiki` en su lugar. |
 | Poner resultados de queries en `/projects` | `/projects` es para ejecución. Resultados de queries van a `/output`. |
-| Usar wikilinks `[[así]]` | Solo funcionan en Obsidian. Usa `[texto](ruta/relativa.md)` en su lugar. |
+| Usar wikilinks `[[así]]` | No son portables. Usa `[texto](ruta/relativa.md)` en su lugar. |
 | Crear un `.md` sin indexar | La regla de auto-indexado asegura que Claude encuentre todo via `index.md`. |
 | Saltarse el frontmatter | Todo archivo `.md` (excepto CLAUDE.md/README.md) necesita frontmatter YAML. |
 | Borrar archivos sin hacer commit primero | Git es tu red de seguridad. Commit, luego borra con confianza. |
