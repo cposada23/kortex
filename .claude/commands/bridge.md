@@ -4,6 +4,14 @@ Run at the start of every Claude Code session.
 
 ## Steps
 
+0. **Staleness check** — Before reading any session file, find the most recent
+   file in `output/sessions/`. If the most recent session file is NOT from today
+   or yesterday, show:
+   "No session file since [DATE]. Want to run /bridge-recovery? (y/n)"
+   - If **y**: run /bridge-recovery, then continue from step 1 (skip step 0 on re-entry)
+   - If **n**: continue with normal bridge (the old session file will be read in step 4
+     but the user has been warned it may be stale)
+
 1. Read `CLAUDE.md` — get schema and strategic orientation
 2. Read `TODO.md` (root) — get full picture of all areas and their status
 3. For every entry in the root TODO where status contains "in progress" or "blocked",

@@ -51,6 +51,7 @@ On-demand — loaded when invoked, not on every conversation.
 - .claude/commands/lint.md — monthly health check
 - .claude/commands/bridge.md — session start ritual
 - .claude/commands/bridge-out.md — session end / Hemingway bridge
+- .claude/commands/bridge-recovery.md — reconstruct state after missed bridge-out
 - .claude/commands/safe-change.md — branched change workflow
 
 ## Asset Sidecars
