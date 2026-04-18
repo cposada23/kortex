@@ -17,7 +17,7 @@ Format: ## [YYYY-MM-DD] operation | description
 
 ---
 
-## [YYYY-MM-DD] setup | Knowledge Brain initialized
+## [YYYY-MM-DD] setup | Kortex initialized
 
 - Cloned from template repo
 - Run /bridge to start your first session

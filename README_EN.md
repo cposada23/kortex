@@ -1,14 +1,20 @@
-# Knowledge Brain
+# Kortex
 
-A personal AI knowledge base that grows with you. Powered by [Claude Code](https://claude.ai/claude-code).
+**Your AI-native second brain.** A personal knowledge system that grows with you, powered by [Claude Code](https://claude.ai/claude-code).
 
-Drop in raw material — courses, articles, PDFs, ideas. Claude reads it, distills it into atomic wiki pages, links them together, and keeps everything indexed. Every session makes the system smarter.
+Drop in raw material — courses, articles, PDFs, ideas. Claude reads it, distills it into atomic wiki pages, links them together, and keeps everything indexed. Every session makes your Kortex smarter.
+
+## What Kortex Is
+
+Kortex is a framework. You clone this template, customize it, and build **your own Kortex** — a digital brain that remembers everything you learn, connects ideas across domains, and returns answers that are ready to use.
+
+Not another note-taking app. It's a system that **composes knowledge** instead of storing it.
 
 ## The Hemingway Bridge
 
 The #1 problem with AI-assisted knowledge work: **you lose context between sessions.** Every new chat starts from zero. You re-explain your project, re-establish your preferences, and waste the first 10 minutes getting oriented.
 
-This framework solves it with the **Hemingway Bridge** — a session continuity system inspired by Hemingway's writing habit of stopping mid-sentence so he'd know exactly where to pick up the next day.
+Kortex solves it with the **Hemingway Bridge** — a session continuity system inspired by Hemingway's writing habit of stopping mid-sentence so he'd know exactly where to pick up the next day.
 
 ```
 /bridge-out   ← End of session: captures where you stopped,
@@ -18,11 +24,11 @@ This framework solves it with the **Hemingway Bridge** — a session continuity 
                 orients you in under 60 seconds
 ```
 
-**The result:** Every session picks up exactly where the last one ended. No re-explaining. No context loss. Your AI assistant has full continuity across sessions.
+**The result:** every session picks up exactly where the last one ended. No re-explaining. No context loss. Your AI assistant has full continuity across sessions.
 
 ## How It Works
 
-This is a **three-layer knowledge system** maintained by Claude Code:
+Kortex is a **three-layer knowledge system** maintained by Claude Code:
 
 | Layer | Location | Purpose |
 |---|---|---|
@@ -62,7 +68,7 @@ You add raw material. Claude reads it, distills it into wiki pages, connects the
 
 | Tool | Required | Purpose |
 |---|---|---|
-| [Claude Code](https://claude.ai/claude-code) | Yes | Primary interface — reads, writes, and maintains the knowledge base |
+| [Claude Code](https://claude.ai/claude-code) | Yes | Primary interface — reads, writes, and maintains your Kortex |
 | [Git](https://git-scm.com/) | Yes | Version control and safety net |
 | Python 3 | Yes | Runs validation hooks (frontmatter, links) |
 | Any markdown editor (VS Code, Obsidian, etc.) | Optional | Browsing and editing wiki pages |
@@ -70,10 +76,10 @@ You add raw material. Claude reads it, distills it into wiki pages, connects the
 ### Setup
 
 ```bash
-# 1. Create your knowledge brain from this template
+# 1. Create your Kortex from this template
 #    (click "Use this template" on GitHub, or clone directly)
-git clone <your-repo-url> my-knowledge-brain
-cd my-knowledge-brain
+git clone <your-repo-url> my-kortex
+cd my-kortex
 
 # 2. Install the pre-commit hook (validates links + frontmatter on every commit)
 cat > .git/hooks/pre-commit << 'HOOK'
@@ -98,7 +104,7 @@ That's it. Claude reads `CLAUDE.md` and `.claude/rules/` automatically.
 
 ## The Four Habits
 
-Build these four habits and the system compounds on its own:
+Build these four habits and your Kortex compounds on its own:
 
 | Habit | When | Command | What happens |
 |---|---|---|---|
@@ -115,13 +121,13 @@ Build these four habits and the system compounds on its own:
 | `/bridge-out` | **End of session.** Creates a Hemingway Bridge — captures where you stopped and the exact next action. |
 | `/ingest` | **Process all inboxes.** Scans global, course, and project inboxes. Creates wiki pages. Updates index. |
 | `/lint` | **Monthly health check.** Finds orphan pages, distillation debt, stale content, broken links. |
-| `/query` | **Knowledge base query.** Asks a question, searches the wiki, synthesizes an answer. |
+| `/query` | **Query your Kortex.** Asks a question, searches the wiki, synthesizes an answer. |
 | `/safe-change` | **Branch workflow.** Creates a feature branch, makes changes, shows summary, merges on approval. |
 
 ## Folder Structure
 
 ```
-my-knowledge-brain/
+my-kortex/
 +-- inbox/           Capture zone
 |   +-- INBOX.md     Text entries (URLs, ideas, quick notes)
 |   +-- drop/        Drop files here (PDFs, articles, transcripts)
@@ -211,7 +217,7 @@ Then run `/ingest`.
 
 ## Feature Comparison
 
-| Feature | Knowledge Brain | Notion | Obsidian alone | RAG / Vector DB |
+| Feature | Kortex | Notion | Obsidian alone | RAG / Vector DB |
 |---|---|---|---|---|
 | Session continuity (Hemingway Bridge) | Yes | No | No | No |
 | AI maintains the wiki for you | Yes | No | Partial (plugins) | No |
@@ -224,7 +230,7 @@ Then run `/ingest`.
 
 ## Built With
 
-- [Claude Code](https://claude.ai/claude-code) — AI interface that reads, writes, and maintains the knowledge base
+- [Claude Code](https://claude.ai/claude-code) — AI interface that reads, writes, and maintains your Kortex
 - [Git](https://git-scm.com/) — version control and safety net
 - Markdown — universal, portable, human-readable
 - Python — lightweight validation hooks

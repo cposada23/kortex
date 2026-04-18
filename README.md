@@ -1,16 +1,22 @@
-# Knowledge Brain
+# Kortex
 
-Un sistema personal de conocimiento con IA que crece contigo. Funciona con [Claude Code](https://claude.ai/claude-code).
+**Tu segundo cerebro con IA.** Un sistema de conocimiento personal que crece contigo, impulsado por [Claude Code](https://claude.ai/claude-code).
 
-Agregas material crudo — cursos, artículos, PDFs, ideas. Claude lo lee, lo destila en páginas wiki atómicas, las conecta entre sí, y mantiene todo indexado. Cada sesión hace el sistema más inteligente.
+Agregas material crudo — cursos, artículos, PDFs, ideas. Claude lo lee, lo destila en páginas wiki atómicas, las conecta entre sí, y mantiene todo indexado. Cada sesión hace tu Kortex más inteligente.
 
 > [English version](README_EN.md)
+
+## Qué es Kortex
+
+Kortex es un framework. Clonas este template, lo personalizas, y construyes **tu propio Kortex** — un cerebro digital que recuerda todo lo que aprendes, conecta las ideas entre sí, y te entrega respuestas listas para usar.
+
+No es otra app de notas. Es un sistema que **compone conocimiento** en lugar de almacenarlo.
 
 ## El Hemingway Bridge
 
 El problema #1 del trabajo con IA: **pierdes contexto entre sesiones.** Cada chat nuevo empieza desde cero. Vuelves a explicar tu proyecto, tus preferencias, y pierdes los primeros 10 minutos orientándote.
 
-Este framework lo resuelve con el **Hemingway Bridge** — un sistema de continuidad inspirado en el hábito de Hemingway de dejar una frase a medias para saber exactamente dónde retomar al día siguiente.
+Kortex lo resuelve con el **Hemingway Bridge** — un sistema de continuidad inspirado en el hábito de Hemingway de dejar una frase a medias para saber exactamente dónde retomar al día siguiente.
 
 ```
 /bridge-out   ← Fin de sesión: captura dónde paraste,
@@ -24,7 +30,7 @@ Este framework lo resuelve con el **Hemingway Bridge** — un sistema de continu
 
 ## Cómo funciona
 
-Es un **sistema de conocimiento en tres capas** mantenido por Claude Code:
+Kortex es un **sistema de conocimiento en tres capas** mantenido por Claude Code:
 
 | Capa | Ubicación | Propósito |
 |---|---|---|
@@ -64,7 +70,7 @@ Tú agregas material crudo. Claude lo lee, lo destila en páginas wiki, las cone
 
 | Herramienta | Requerido | Para qué |
 |---|---|---|
-| [Claude Code](https://claude.ai/claude-code) | Sí | Interfaz principal — lee, escribe y mantiene tu base de conocimiento |
+| [Claude Code](https://claude.ai/claude-code) | Sí | Interfaz principal — lee, escribe y mantiene tu Kortex |
 | [Plan Pro de Claude](https://claude.ai/pricing) | Sí | Claude Code requiere suscripción Pro ($20/mes) |
 | [Git](https://git-scm.com/) | Sí | Control de versiones y red de seguridad |
 | [Node.js](https://nodejs.org/) | Sí | Necesario para instalar Claude Code (`npm install -g @anthropic-ai/claude-code`) |
@@ -73,10 +79,10 @@ Tú agregas material crudo. Claude lo lee, lo destila en páginas wiki, las cone
 ### Instalación
 
 ```bash
-# 1. Crea tu Knowledge Brain desde este template
+# 1. Crea tu Kortex desde este template
 #    (click "Use this template" en GitHub, o clona directamente)
-git clone <url-de-tu-repo> mi-cerebro
-cd mi-cerebro
+git clone <url-de-tu-repo> mi-kortex
+cd mi-kortex
 
 # 2. Instala el hook de pre-commit (valida links + frontmatter en cada commit)
 cat > .git/hooks/pre-commit << 'HOOK'
@@ -101,7 +107,7 @@ Eso es todo. Claude lee `CLAUDE.md` y `.claude/rules/` automáticamente.
 
 ## Los cuatro hábitos
 
-Construye estos cuatro hábitos y el sistema crece solo:
+Construye estos cuatro hábitos y tu Kortex crece solo:
 
 | Hábito | Cuándo | Comando | Qué pasa |
 |---|---|---|---|
@@ -118,13 +124,13 @@ Construye estos cuatro hábitos y el sistema crece solo:
 | `/bridge-out` | **Fin de sesión.** Crea un Hemingway Bridge — captura dónde paraste y la siguiente acción exacta. |
 | `/ingest` | **Procesa todos los inboxes.** Escanea inboxes global, de cursos y de proyectos. Crea páginas wiki. Actualiza el índice. |
 | `/lint` | **Revisión de salud mensual.** Encuentra páginas huérfanas, deuda de destilación, contenido desactualizado, links rotos. |
-| `/query` | **Consulta al knowledge base.** Haz una pregunta, busca en el wiki, sintetiza una respuesta. |
+| `/query` | **Consulta a tu Kortex.** Haz una pregunta, busca en el wiki, sintetiza una respuesta. |
 | `/safe-change` | **Workflow de branch.** Crea una rama, hace cambios, muestra resumen, mergea con tu aprobación. |
 
 ## Estructura de carpetas
 
 ```
-mi-cerebro/
+mi-kortex/
 +-- inbox/           Zona de captura
 |   +-- INBOX.md     Entradas de texto (URLs, ideas, notas rápidas)
 |   +-- drop/        Agrega archivos aquí (PDFs, artículos, transcripciones)
@@ -265,7 +271,7 @@ Luego ejecuta `/ingest`.
 
 ## Comparación de funcionalidades
 
-| Funcionalidad | Knowledge Brain | Notion | Obsidian solo | RAG / Vector DB |
+| Funcionalidad | Kortex | Notion | Obsidian solo | RAG / Vector DB |
 |---|---|---|---|---|
 | Continuidad de sesión (Hemingway Bridge) | Sí | No | No | No |
 | La IA mantiene la wiki por ti | Sí | No | Parcial (plugins) | No |
@@ -278,7 +284,7 @@ Luego ejecuta `/ingest`.
 
 ## Construido con
 
-- [Claude Code](https://claude.ai/claude-code) — Interfaz de IA que lee, escribe y mantiene la base de conocimiento
+- [Claude Code](https://claude.ai/claude-code) — Interfaz de IA que lee, escribe y mantiene tu Kortex
 - [Git](https://git-scm.com/) — Control de versiones y red de seguridad
 - Markdown — Universal, portable, legible por humanos
 - Python — Hooks de validación ligeros
