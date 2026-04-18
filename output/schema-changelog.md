@@ -9,7 +9,7 @@ updated: YYYY-MM-DD
 
 # Schema Changelog
 
-Version history for the Knowledge Brain system schema.
+Version history for the Kortex system schema.
 
 ---
 

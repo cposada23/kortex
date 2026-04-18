@@ -18,10 +18,10 @@ distillation_level: 2
 The Second Brain concept (popularized by Tiago Forte) is the practice of externalizing your knowledge into a trusted system. Instead of relying on memory, you capture, organize, distill, and express ideas through a digital system.
 
 ## Why it matters
-Without a second brain, knowledge stays trapped in conversations, bookmarks, and forgotten notes. A knowledge brain like this one compounds over time — every piece of information you add makes the whole system more valuable.
+Without a second brain, knowledge stays trapped in conversations, bookmarks, and forgotten notes. A system like Kortex compounds over time — every piece of information you add makes the whole system more valuable.
 
 ## How it connects
-This knowledge brain is a second brain implementation. The key difference: instead of manually organizing everything, an LLM (Claude) maintains the wiki, creates connections, and keeps the index current.
+Kortex is a second brain implementation. The key difference: instead of manually organizing everything, an LLM (Claude) maintains the wiki, creates connections, and keeps the index current.
 
 - [LLM Wiki Pattern](../references/llm-wiki-pattern.md) — the specific pattern this system uses
 - [Distillation Levels](../concepts/distillation-levels.md) — how knowledge matures in this system

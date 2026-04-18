@@ -1,7 +1,7 @@
-# CLAUDE.md — Knowledge Brain
+# CLAUDE.md — Kortex
 
 ## What This Is
-A personal AI Knowledge Graph built on the LLM Wiki pattern.
+**Kortex** — a personal AI Knowledge Graph built on the LLM Wiki pattern.
 A living brain that grows with every course, experiment, and
 content creation session. Not a finished project — a system
 that compounds over time.
@@ -24,7 +24,7 @@ Layer 3 — The Schema: this file + .claude/rules/ + .claude/commands/
 
 ## File Structure
 - /sources/courses → raw course material (immutable, Layer 1)
-- /wiki → shared synthesized knowledge brain (Layer 2)
+- /wiki → shared synthesized knowledge (Layer 2)
 - /projects → active project execution folders
 - /inbox → quick capture zone, zero friction
 - /output → ephemeral files only: lint reports, session notes, plans, drafts (never lasting knowledge — that goes to /wiki)
