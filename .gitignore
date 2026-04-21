@@ -1,3 +1,7 @@
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 .DS_Store
+
+# Mid-session context handoffs — local safety net only, not shared.
+# See .claude/commands/handoff.md for the format. Rotated by /lint.
+output/handoffs/
