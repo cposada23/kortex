@@ -44,6 +44,12 @@ Skip on CLAUDE.md and README.md only.
 All internal links use relative markdown: `[text](path/to/file.md)`.
 No wikilinks. Pre-commit hook blocks broken links.
 
+## Verification Rule
+Claims about fast-changing external facts (AI product features, platform
+UIs, metrics, legal events) require live web search with a recent date.
+External AI output is a signal, not verification. See .claude/rules/verification.md
+for full rules and categories.
+
 ## Commands
 On-demand — loaded when invoked, not on every conversation.
 - .claude/commands/ingest.md — distributed inbox processing
