@@ -83,17 +83,35 @@ If sync-relevant files changed, add a warning to the session notes under
 **Artifact sync needed** and remind the user in the confirmation message:
 "Artifact [name] may need syncing — [list changed trigger files]."
 
-### Step 8 — Confirm
+### Step 8 — Commit and push
 
-Tell the user: "Bridge written. TODOs updated. See you next session."
+Stage everything this command modified or created in the previous
+steps — session file, `log.md`, `index.md`, any `TODO.md` files,
+and any wiki pages created in Step 3. Commit with a clear message
+(e.g. `bridge-out — YYYY-MM-DD session end`) and `git push` to
+origin.
+
+Bridge-out is a session-close ritual. Session closure is not
+complete until the commits are on origin — leaving the session
+file, log entry, and TODO updates uncommitted or unpushed means
+the next session (possibly on a different machine or days later)
+won't see them.
+
+Also push any pre-existing commits on main that were not yet
+pushed (e.g. from `/safe-change` merges earlier in this session).
+A single `git push` after the bridge-out commit handles both.
+
+### Step 9 — Confirm
+
+Tell the user: "Bridge written, committed, and pushed to origin. TODOs updated. See you next session."
 
 ## Rules
 
 - Write in the same language the user was using in this session
 - Be specific — vague entries are useless
 - "NEXT" must be a real action, not a goal
-  Good: "Run /lint and fix the top 3 issues"
-  Bad: "Continue working on the project"
+  Good: "Run /lint in Claude Code and fix the top 3 issues"
+  Bad: "Continue exploring memory systems"
 - Do not summarize everything — capture what matters for continuity
 - One file per day — append to existing file if today's session file already exists
 - Only add to index.md if a new file was created (not on append)

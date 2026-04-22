@@ -78,12 +78,17 @@ This directory is `.gitignored` — handoffs are a local safety net, not
 shared content. If the terminal dies before the user pastes the
 summary into a new chat, the file is still on disk.
 
-### Step 3 — Display the summary inline
+### Step 3 — Point the user at the file
 
-Output the same block to the chat so the user reads it and picks the
-RESUME PROMPT to paste. Include the handoff file path at the top:
+Do NOT paste the summary block into the chat. The file already lives
+on disk from Step 2 — the user opens it in their IDE, reads it there,
+and copies the RESUME PROMPT from the file. Re-printing the full block
+in the chat burns context and duplicates content they already have on
+disk.
 
-> `Saved to: output/handoffs/YYYY-MM-DD-HHMM-<slug>.md`
+Output only the file path and a brief instruction:
+
+> `Handoff saved to: output/handoffs/YYYY-MM-DD-HHMM-<slug>.md — open in your IDE to review and copy the RESUME PROMPT.`
 
 ### Step 4 — Append to log.md
 
@@ -114,12 +119,26 @@ auto-commit.
 If no TODO changes: skip silently. Do NOT invent TODO changes to fill
 the step.
 
-### Step 6 — Tell the user what to do next
+### Step 6 — Push pending commits
+
+Run `git log origin/main..main --oneline` to check for commits on main
+that are not yet on origin (e.g. from `/safe-change` merges earlier in
+this session). If any exist, run `git push`.
+
+Handoff itself does NOT commit the log.md append or TODO edits — that
+remains the user's call per Step 4 and Step 5. This step only pushes
+pre-existing commits. Session handoff is not complete until earlier
+work is on origin — leaving commits local defeats the "clean chat
+window, work continues" premise.
+
+If `git log origin/main..main` is empty, skip silently.
+
+### Step 7 — Tell the user what to do next
 
 End with a short instruction:
 
-> "Summary saved and shown above. Review it, then `/clear` and paste
-> the RESUME PROMPT at the start of the new chat to continue."
+> "Handoff file ready. Open it in your IDE, review, then `/clear`
+> and paste the RESUME PROMPT at the start of the new chat to continue."
 
 ## Fidelity priority
 
@@ -148,8 +167,8 @@ When output space is constrained, compress in this order:
 
 | Command | Use case | Persists |
 |---|---|---|
-| `/handoff` | Same session; pivot OR preventive compaction | handoff file in `output/handoffs/` (gitignored, local safety net) + log.md 1 line + conditional TODOs |
-| `/bridge-out` | End of work day — will return hours/days later | session file (committed) + log + TODOs + index |
+| `/handoff` | Same session; pivot OR preventive compaction | handoff file in `output/handoffs/` (gitignored, local safety net) + log.md 1 line + conditional TODOs + push of any pre-existing unpushed commits |
+| `/bridge-out` | End of work day — will return hours/days later | session file + log + TODOs + index (all committed and pushed to origin) |
 | `/bridge` | Start of new session (after bridge-out or cold) | nothing new — reads to orient |
 
 Rule of thumb: `/handoff` is lighter than `/bridge-out`. If you're
@@ -163,6 +182,8 @@ about to close the laptop, use `/bridge-out`. If you're about to
 - **DECISIONS and STATE are non-negotiable.** Everything else can be
   terse; these cannot.
 - Do not re-dump the entire conversation. Summarize.
-- The user reads the summary in the chat before `/clear` — they are
+- Do NOT paste the handoff block into the chat after Step 2 writes it
+  to disk. The user reads it in the IDE, not in the chat.
+- The user reads the summary in their IDE before `/clear` — they are
   the final judge of whether something got missed. If something is
   missing, they tell you before clearing.
