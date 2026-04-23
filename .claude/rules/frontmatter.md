@@ -19,11 +19,15 @@ frontmatter block with a single `scope:` field (`framework` or
 `project:<name>`) — not the full content schema. See [scope.md](scope.md)
 for the scope tagging convention.
 
+Items in any `/inbox/` folder with `type: idea` follow the narrower
+schema in [idea-frontmatter.md](idea-frontmatter.md) — same base
+fields, plus `status`, `angle`, and `target_channel` for routing.
+
 ## Required fields
 
 ```yaml
 title: "Page Title"
-type: concept | reference | playbook | area | project | tool | person | index | inbox | todo | todo-index
+type: concept | reference | playbook | area | project | tool | person | index | inbox | idea | todo | todo-index
 layer: wiki
 language: en | es | en-es
 tags: [relevant-tags, capa/2-wiki]

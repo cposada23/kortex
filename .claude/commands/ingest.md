@@ -32,33 +32,56 @@ When run without arguments, scan all inboxes in this order:
 
 Skip empty inboxes silently. Only report inboxes that had items.
 
+## Idea items — schema-driven routing
+
+Markdown files with `type: idea` in their frontmatter follow a specific
+schema defined in [../rules/idea-frontmatter.md](../rules/idea-frontmatter.md).
+These files route differently from generic inbox items:
+
+1. Read the frontmatter. Confirm `type: idea` and the required fields
+   are present (`title`, `status`, `angle`, `target_channel`).
+2. **Route by `target_channel`, not by the inbox path.** An idea in
+   the root inbox with `target_channel: <project>` belongs to that
+   project regardless of which inbox it was dropped in.
+3. Do NOT re-interpret the idea. The frontmatter is the source of
+   truth — the ingest's job is to move the file and log the action,
+   not to re-generate angle/why_it_works/status.
+4. Destination is project-specific. Follow the target project's
+   convention for where ideas land after triage (see that project's
+   `CLAUDE.md`).
+5. If `target_channel: cross-project` or the field is missing, leave
+   the file in the root inbox and flag it `needs-routing` in the
+   ingest report for manual triage.
+
 ## Workflow — Files (PDFs, articles, transcripts, etc.)
 
 1. Read the file completely before doing anything
-2. Determine context from the inbox location:
+2. If the file is a `.md` with `type: idea`, use the schema-driven
+   routing above — skip the rest of this workflow.
+3. Determine context from the inbox location:
    - `inbox/drop/` → general, apply relevance filter
    - `sources/courses/[course]/inbox/` → tagged to that course automatically
    - `projects/[project]/inbox/` → tagged to that project automatically
-3. Apply the relevance filter (general inbox only):
+4. Apply the relevance filter (general inbox only):
    - Does this connect to an active project or area?
    - If no: move to `processed/` and note SKIPPED in the ingest report
    - If yes: continue
    - Course and project inboxes skip this filter — they are relevant by definition
-4. Determine destination based on inbox location:
+5. Determine destination based on inbox location:
    - `inbox/drop/` or `sources/courses/*/inbox/` → create page in `/wiki` (shared knowledge)
    - `projects/[project]/inbox/` → create page in that project's folder
      (use `references/`, `content/`, or `prompts/` based on content type)
    - Project-specific content stays in the project — it is not general knowledge
-5. Write or update the page at the determined destination
+6. Write or update the page at the determined destination
    - One concept per page (atomic — not "everything about X")
    - Full frontmatter including distillation_level: 1
    - Add `course:` or `project:` field in frontmatter when applicable
    - Summary field: one sentence stating what and why it matters
    - Related links to connected existing pages
-6. Move the source file to the `processed/` subfolder in the same inbox
-7. Update index.md with any new pages created
-8. Append an entry to log.md: `## [DATE] ingest | [Page Title] (from [inbox location])`
-9. Update related existing pages if the new content connects to them
+7. Move the source file to the `processed/` subfolder in the same inbox
+8. Update index.md with any new pages created
+9. Append an entry to log.md: `## [DATE] ingest | [Page Title] (from [inbox location])`
+10. Update related existing pages if the new content connects to them
 
 ## Workflow — Text entries (in INBOX.md files)
 
