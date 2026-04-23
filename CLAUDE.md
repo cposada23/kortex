@@ -40,6 +40,13 @@ Every new .md file must include YAML frontmatter per .claude/rules/frontmatter.m
 Required: title, type, layer, language, tags, updated.
 Skip on CLAUDE.md and README.md only.
 
+## Idea Schema Rule
+Ideas captured in any `/inbox/` folder use `type: idea` and follow the
+narrower schema in .claude/rules/idea-frontmatter.md — same base fields
+plus `status`, `angle`, and `target_channel`. `/ingest` routes idea
+items by `target_channel`, not by inbox path, so a cross-project idea
+reaches the right destination even when dropped in the wrong inbox.
+
 ## Link Rule
 All internal links use relative markdown: `[text](path/to/file.md)`.
 No wikilinks. Pre-commit hook blocks broken links.
@@ -49,6 +56,11 @@ Claims about fast-changing external facts (AI product features, platform
 UIs, metrics, legal events) require live web search with a recent date.
 External AI output is a signal, not verification. See .claude/rules/verification.md
 for full rules and categories.
+
+## Scope Rule
+Every file under `.claude/` declares a scope so the framework layer
+stays cleanly separated from project-specific artifacts. See
+.claude/rules/scope.md for declaration formats per file type.
 
 ## Write Authority Rule
 Structural writes to your Kortex instance pass through Claude Code only
