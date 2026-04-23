@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # /lint — Wiki Health Check
 
 Run monthly. Output goes to output/lint-YYYY-MM-DD.md.

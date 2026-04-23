@@ -1,7 +1,23 @@
 # Frontmatter Schema
 
 Every new .md file created in this project must include YAML frontmatter.
-Exception: CLAUDE.md files and README.md files — skip frontmatter on these.
+
+Exceptions (frontmatter is NOT required on these — they are schema or
+operational files, not indexable content):
+
+- `CLAUDE.md` files
+- `README.md` files
+- `INBOX.md`, `log.md`, `index.md`
+- Any file under `.claude/rules/`, `.claude/hooks/`, `.claude/commands/`,
+  `.claude/skills/`, or `.claude/templates/` (operational schema)
+
+The pre-commit hook at `.claude/hooks/validate-frontmatter.py` enforces
+this list — keep the two in sync when updating either.
+
+Files under `.claude/commands/` and `.claude/skills/` carry a minimal
+frontmatter block with a single `scope:` field (`framework` or
+`project:<name>`) — not the full content schema. See [scope.md](scope.md)
+for the scope tagging convention.
 
 ## Required fields
 
@@ -20,8 +36,8 @@ updated: YYYY-MM-DD
 status: active | draft | archived
 distillation_level: 0-4
 related_paths:                        # cross-references as relative paths
-  - ../concepts/strategy/topic.md
-  - ../../tools/tool-name.md
+  - ../concepts/strategy/FICHA_NICHO.md
+  - ../../tools/HERRAMIENTAS_IA.md
 course: course-name
 step: step-name
 project: project-name
@@ -40,6 +56,11 @@ supersedes: old-page-name.md          # if this page replaces/updates an older o
 superseded_by: newer-page-name.md     # if a newer page has replaced this one
 ```
 
+- **Start with new pages only.** Backfill existing pages during distillation reviews.
+- **supersedes / superseded_by** — when new info contradicts old info, link both directions.
+  Prevents silent contradictions sitting in the wiki.
+- A page can be distillation_level 3 but confidence: low if based on a single unverified source.
+
 ## distillation_level values
 
 Required on all wiki pages in /wiki. Used by /lint to track distillation debt.
@@ -50,7 +71,7 @@ Required on all wiki pages in /wiki. Used by /lint to track distillation debt.
 | 1 | First pass | Read, key points identified |
 | 2 | Distilled | Essential content in own words |
 | 3 | Synthesized | Connected to other pages, implications drawn |
-| 4 | Expression-ready | Can generate content directly from this page |
+| 4 | Expression-ready | Can generate Milo IA content directly from this page |
 
 ## Layer tags (required in tags field)
 

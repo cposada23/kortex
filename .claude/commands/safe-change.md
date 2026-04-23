@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # Safe Change Workflow
 
 Use this command for any significant file operation.
@@ -29,15 +33,27 @@ Use this command for any significant file operation.
    - Update root TODO.md counts to match
    - git add and commit TODO changes
    - git push
-9. Run post-merge checks:
+9. Run the update-brief workflow automatically:
    - Check git diff to see what changed
-   - If any project has an `artifacts.md`, check if changed files
-     match sync_triggers — warn if so
+   - Read index.md to map changes to projects
+   - Regenerate any affected project briefs
+   - Add list of updated briefs to the final
+     confirmation message
 10. Confirm:
    "Merged and pushed to main successfully.
+
    log.md updated.
-   TODOs updated: [list TODO files changed, or 'No TODO changes needed']
-   [Artifact sync warnings if any]"
+
+   TODOs updated:
+   - [list TODO files changed, or 'No TODO changes needed']
+
+   Project briefs updated:
+   - [list any briefs that were regenerated]
+
+   Re-upload to Claude.ai Projects:
+   - [list which brief files to re-upload]
+
+   No re-upload needed if briefs unchanged."
 11. If NO:
    - Discard ALL changes and restore to pre-branch state:
      git checkout main -- .

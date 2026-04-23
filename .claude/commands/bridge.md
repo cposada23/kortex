@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # /bridge — Session Start Ritual
 
 Run at the start of every Claude Code session.
@@ -26,7 +30,6 @@ Run at the start of every Claude Code session.
    Show: title, path, days since last update.
    Ask: "Still accurate? (y = bump updated date, n = flag for review, skip = move on)"
    One page per session — keeps the wiki alive without dedicated review sprints.
-   Threshold is configurable: default 60 days. Adjust based on wiki size and session frequency.
 
 ## Output format
 

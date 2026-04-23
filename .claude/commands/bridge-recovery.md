@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # /bridge-recovery — Reconstruct Session State
 
 Use when /bridge detects a stale session file (no session from today or yesterday),

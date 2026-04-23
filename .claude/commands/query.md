@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # /query — Knowledge Base Query (compounding loop)
 
 Run when answering a question about any topic in the knowledge base.

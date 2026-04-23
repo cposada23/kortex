@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # /handoff — Mid-session context compaction
 
 Produce a structured summary of this conversation so the user can `/clear`
@@ -19,10 +23,38 @@ This is NOT `/bridge-out`. Bridge-out is for "closing the laptop"
 
 Execute these steps in order.
 
+### Step 0 — Detect repo state (MANDATORY)
+
+Before generating the summary, run these commands and record the
+output — the result changes what Step 1 MUST include:
+
+```
+git branch --show-current
+git status --short
+git log origin/main..main --oneline
+```
+
+Classify the state into one of three buckets:
+
+- **CLEAN-MAIN** — on `main`, no uncommitted changes, no unpushed commits.
+  Normal handoff; nothing special to flag.
+- **MID-SAFE-CHANGE** — on a feature branch (not `main`) AND there are
+  uncommitted or uncommitted+staged changes. The user is mid `/safe-change`
+  waiting for YES/NO. The new chat MUST NOT auto-commit, auto-merge, or
+  switch branches.
+- **DIRTY-MAIN-OR-OTHER** — any other state (uncommitted changes on main,
+  feature branch with everything committed, unpushed commits on main, etc.).
+  Flag the specific condition so the new chat knows what it's walking into.
+
+Record the classification + the raw `git status --short` output for use in
+Step 1. This detection is **mandatory** — skipping it is the #1 way a new
+chat breaks a safe-change flow by committing to the wrong place.
+
 ### Step 1 — Generate the summary
 
 Build a markdown block with these 6 sections. Follow the fidelity
-priority below.
+priority below. **The STATE and RESUME PROMPT sections have mandatory
+first-line rules driven by Step 0.**
 
 ```markdown
 ---
@@ -37,27 +69,68 @@ updated: YYYY-MM-DD
 ## Handoff — YYYY-MM-DD HH:MM
 
 ### STATE
-[2-3 lines — where the work stands right now. Concrete, not abstract.]
+[**FIRST LINE IS MANDATORY when Step 0 is MID-SAFE-CHANGE or DIRTY-MAIN-OR-OTHER.**
+Format: `Git: <branch-name> — <clean | N uncommitted | mid /safe-change awaiting YES/NO | N unpushed on main>`.
+Then 2-3 lines on where the work stands right now. Concrete, not abstract.
+If MID-SAFE-CHANGE: state explicitly that the new chat must NOT commit,
+merge, or switch branches until the user decides YES or NO.]
+
+### CONTEXT
+[2-4 sentences on *why* this conversation exists. What came before it,
+what upstream goal it serves, what the user was trying to accomplish
+when the session started. The new chat inherits only the RESUME PROMPT
+by default — without context it cannot tell whether current state is
+"almost done" or "early exploration". Include: the trigger for the
+session, the parent project/goal, any prior session that led here.]
+
+### DECISIONS
+[Agreements closed in this conversation that the new chat must respect.
+**Each decision must include the alternative considered and the reason**
+— not just "chose A" but "chose A over B because C". If the user said
+"always do X" or "never do Y", preserve the phrasing verbatim. If a
+decision is load-bearing for future work, flag it. Also include
+non-decision constraints the user mentioned (deadlines, tool
+preferences, energy state) that shape how work should proceed.]
+
+### REJECTED / EXPLORED
+[Approaches we tried or considered and decided against, each with the
+reason. This is the #1 section that protects the new chat from
+wasting tokens re-trying failed paths. Format: `- <approach> — rejected because <reason>`.
+If nothing was rejected in this session: "None."]
 
 ### FILES TOUCHED
 [Bullet list of file:line pointers. NO file content. Just paths + line
 numbers when relevant. Group by project/area if many.]
 
-### DECISIONS
-[Agreements closed in this conversation that the new chat must respect.
-Preserve verbatim when possible. If the user said "always do X" or
-"never do Y" or chose option A over B, capture it here with the reason.]
-
 ### OPEN QUESTIONS
-[Anything unresolved. If none, write "None."]
+[Anything unresolved — half-investigated rabbit holes, questions the
+user asked that weren't fully answered, ambiguities the new chat needs
+to know about. If none, write "None."]
 
 ### NEXT
-[1-2 concrete next actions. Specific enough to execute immediately.]
+[1-2 concrete next actions. Specific enough to execute immediately.
+If MID-SAFE-CHANGE, the first NEXT action MUST be "ask the user for
+YES/NO to close the pending /safe-change" — do not skip ahead.]
 
 ### RESUME PROMPT
-[Copy-paste ready paragraph for the new chat. Self-contained. Must
-include: what the user is doing, relevant decisions from above, what
-comes next. ~100-200 words max. The user pastes this after /clear.]
+[Self-contained briefing for the new chat. **250-400 words.** The user
+pastes this after /clear and the new chat must be able to continue
+productively from this alone. Must cover, in prose (not bullets):
+1. Git state + any MID-SAFE-CHANGE warning (first sentence).
+2. What the user is doing and why (the CONTEXT, compressed).
+3. Key decisions already closed that the new chat must respect.
+4. Approaches already rejected — "don't re-try X".
+5. The immediate next action.
+
+**MANDATORY when MID-SAFE-CHANGE:** the first sentence must name the
+branch and warn that a /safe-change is pending YES/NO — e.g. "Estás
+en rama `feature/...` a medio /safe-change esperando YES/NO; no
+commitees ni hagas merge hasta que Camilo decida." This survives the
+user copy-pasting only the RESUME PROMPT and skipping the rest.
+
+Err on the side of more context. 400 words the user's eyes skim once
+is much cheaper than 50 messages of the new chat rediscovering the
+same ground.]
 ```
 
 ### Step 2 — Write the handoff file (safety net)
@@ -113,25 +186,29 @@ Scan this conversation for changes that affect TODOs:
 - New backlog item discovered
 
 If found: update the relevant `TODO.md` (project or area) and the root
-`TODO.md` status counts. Commit is the user's call later — do not
-auto-commit.
+`TODO.md` status counts. **Leave uncommitted** — the user needs to see
+the edits in `git status` so they can review everything together before
+merging.
 
 If no TODO changes: skip silently. Do NOT invent TODO changes to fill
 the step.
 
-### Step 6 — Push pending commits
+### Step 6 — No commit, no push
 
-Run `git log origin/main..main --oneline` to check for commits on main
-that are not yet on origin (e.g. from `/safe-change` merges earlier in
-this session). If any exist, run `git push`.
+**`/handoff` never commits or pushes.** The log.md append (Step 4) and
+any TODO edits (Step 5) stay uncommitted in the working tree. The
+handoff file itself (Step 2) is gitignored.
 
-Handoff itself does NOT commit the log.md append or TODO edits — that
-remains the user's call per Step 4 and Step 5. This step only pushes
-pre-existing commits. Session handoff is not complete until earlier
-work is on origin — leaving commits local defeats the "clean chat
-window, work continues" premise.
+This is intentional: if `/handoff` commits anything, those changes
+disappear from `git status` — the user loses visibility into what's
+pending review. Keeping everything uncommitted means the user can open
+the IDE's source-control panel, see every modified file, and review
+them all before deciding what to commit.
 
-If `git log origin/main..main` is empty, skip silently.
+Commit and push both happen later via the user's explicit call:
+- `/safe-change` YES → commits + merges + pushes
+- Manual `git add` / `git commit` / `git push`
+- `/bridge-out` → end-of-day ritual that commits + pushes
 
 ### Step 7 — Tell the user what to do next
 
@@ -161,13 +238,16 @@ When output space is constrained, compress in this order:
 - Orienting the new chat with full-repo context (CLAUDE.md, artifacts,
   old sessions) — that's `/bridge`. The RESUME PROMPT is intentionally
   task-focused; the new chat only reads the repo when it needs to.
-- Auto-commit of TODO changes — the user decides when to commit.
+- Committing or pushing anything. `/handoff` leaves log.md and TODO
+  edits uncommitted in the working tree so the user can review them
+  in the IDE's source-control panel. Commit + push are the user's
+  call via `/safe-change` YES, `/bridge-out`, or manual git.
 
 ## Relationship to other commands
 
 | Command | Use case | Persists |
 |---|---|---|
-| `/handoff` | Same session; pivot OR preventive compaction | handoff file in `output/handoffs/` (gitignored, local safety net) + log.md 1 line + conditional TODOs + push of any pre-existing unpushed commits |
+| `/handoff` | Same session; pivot OR preventive compaction | handoff file in `output/handoffs/` (gitignored, local safety net) + log.md 1 line (uncommitted) + conditional TODO edits (uncommitted). **No commit, no push** — the user sees everything in `git status` and decides what to commit. |
 | `/bridge-out` | End of work day — will return hours/days later | session file + log + TODOs + index (all committed and pushed to origin) |
 | `/bridge` | Start of new session (after bridge-out or cold) | nothing new — reads to orient |
 
@@ -181,6 +261,20 @@ about to close the laptop, use `/bridge-out`. If you're about to
 - Be specific — vague summaries defeat the purpose.
 - **DECISIONS and STATE are non-negotiable.** Everything else can be
   terse; these cannot.
+- **Step 0 (repo state detection) is mandatory.** Never generate a
+  handoff without running the three git commands first. The
+  classification drives what STATE and RESUME PROMPT must include.
+- **If MID-SAFE-CHANGE, the RESUME PROMPT's first sentence must warn
+  about the pending /safe-change.** Users often copy only the RESUME
+  PROMPT — this is the one line guaranteed to reach the new chat.
+- `/handoff` NEVER commits, pushes, merges, or switches branches. All
+  log.md and TODO edits stay uncommitted so the user keeps visibility
+  on them in the IDE's source-control panel. Commit + push happen via
+  `/safe-change` YES, `/bridge-out`, or manual git.
+- **When in doubt, include it.** The handoff is read once by the user
+  and once by the new chat; the alternative is the new chat
+  rediscovering the same info by trial and error, which costs 10x more
+  tokens. Err on the side of more context.
 - Do not re-dump the entire conversation. Summarize.
 - Do NOT paste the handoff block into the chat after Step 2 writes it
   to disk. The user reads it in the IDE, not in the chat.

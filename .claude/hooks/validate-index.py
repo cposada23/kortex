@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# scope: framework
 """
 Index reminder hook for Claude Code.
 Runs after any .md file is written. Checks if the file appears in index.md.
@@ -37,9 +38,11 @@ def check_file(filepath):
     except Exception:
         return
 
+    # Check by filename (not full path) — index.md uses relative paths
     if filename in index_content:
         return
 
+    # Also check by relative path from project root
     try:
         rel_path = os.path.relpath(filepath, PROJECT_ROOT)
         if rel_path in index_content:

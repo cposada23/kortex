@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# scope: framework
 """
 Frontmatter validator hook for Claude Code.
 
@@ -19,6 +20,18 @@ import subprocess
 
 REQUIRED_FIELDS = ["title", "type", "layer", "language", "tags", "updated"]
 SKIP_PATTERNS = ["CLAUDE.md", "README.md", "INBOX.md", "log.md", "index.md"]
+# Path-prefix skips — operational schema, not indexable content.
+# Keep in sync with .claude/rules/frontmatter.md.
+# Note: commands/, skills/, templates/ are scope-tagged (see .claude/rules/scope.md)
+# and exempt from the content-frontmatter schema — they carry a single
+# `scope:` field rather than the full title/type/layer/language/tags/updated set.
+SKIP_PATH_PREFIXES = [
+    "/.claude/rules/",
+    "/.claude/hooks/",
+    "/.claude/commands/",
+    "/.claude/skills/",
+    "/.claude/templates/",
+]
 
 # Directories where frontmatter violations block the write
 HARD_DIRS = ["/wiki/", "/output/"]
@@ -32,6 +45,9 @@ def check_file(filepath):
 
     filename = os.path.basename(filepath)
     if filename in SKIP_PATTERNS:
+        return 0
+
+    if any(p in filepath for p in SKIP_PATH_PREFIXES):
         return 0
 
     is_hard = any(d in filepath for d in HARD_DIRS)
@@ -103,6 +119,7 @@ def check_staged():
         result = check_file(filepath)
         if result == 1:
             hard_failures += 1
+        # check_file prints its own messages
 
     if hard_failures:
         print(f"\n❌ FRONTMATTER VALIDATION FAILED — {hard_failures} file(s) "

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# scope: framework
 """
 Pre-commit hook: validate internal markdown links.
 Scans all staged .md files for broken internal links.
@@ -39,7 +40,9 @@ def get_all_md_files():
 
 def strip_code(content):
     """Remove fenced code blocks and inline code spans from content."""
+    # Remove fenced code blocks (``` ... ```)
     content = re.sub(r'```[\s\S]*?```', '', content)
+    # Remove inline code spans (` ... `)
     content = re.sub(r'`[^`]+`', '', content)
     return content
 
@@ -60,25 +63,31 @@ def check_file(filepath, all_files):
 
     file_dir = os.path.dirname(abs_path)
 
+    # Process line by line but use code-stripped content for detection
     clean_content = strip_code(content)
     clean_lines = clean_content.split("\n")
 
     for line_num, line in enumerate(clean_lines, 1):
+        # Find markdown links: [text](target)
         for match in re.finditer(r'\[([^\]]*)\]\(([^)]+)\)', line):
             target = match.group(2)
 
+            # Skip external URLs, anchors, mailto
             if target.startswith(("http://", "https://", "#", "mailto:")):
                 continue
 
+            # Skip image/media references (not markdown files)
             media_ext = (".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp",
                          ".mp4", ".mov", ".pdf")
             if any(target.lower().endswith(ext) for ext in media_ext):
                 continue
 
+            # Strip anchor
             target_path = target.split("#")[0]
             if not target_path:
                 continue
 
+            # Resolve relative path
             resolved = os.path.normpath(os.path.join(file_dir, target_path))
 
             if not os.path.exists(resolved):

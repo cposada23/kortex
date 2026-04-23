@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # /ingest — Process All Inboxes
 
 Scan and process all inbox locations across the project.
@@ -113,5 +117,5 @@ during ingest or when the user drops binary files into the project.
 
 ## Targeted ingest
 
-If the user points to a specific file (e.g., "ingest sources/courses/my-course/lesson-5.pdf"),
+If the user points to a specific file (e.g., "ingest sources/courses/ai-video-creators/lesson-5.pdf"),
 process that single file using the same workflow. Context is inferred from the file path.

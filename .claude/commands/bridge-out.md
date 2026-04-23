@@ -1,3 +1,7 @@
+---
+scope: framework
+---
+
 # /bridge-out — Hemingway Bridge: End of Session
 
 Write a compact session note and update all TODO files at the end of this session.
