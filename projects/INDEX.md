@@ -36,3 +36,7 @@ When a project grows past ~10 files, create its own `INDEX.md` at
 `projects/<name>/INDEX.md` describing the files in that project.
 Update the entry above to link to the per-project index instead of
 the `CLAUDE.md` / brief.
+
+Use the template at
+[.claude/templates/project-index.md](../.claude/templates/project-index.md)
+— copy it, rename to `INDEX.md`, fill in the placeholders.

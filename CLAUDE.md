@@ -32,25 +32,58 @@ Layer 3 — The Schema: this file + .claude/rules/ + .claude/commands/
 - log.md → chronological operation log
 
 ## Auto-index Rule
-Every new .md file must be added to the most specific INDEX.md for
-its location, immediately. The repo uses a hierarchical index system:
 
-- New file under `wiki/**` → update [wiki/INDEX.md](wiki/INDEX.md)
-- New file under `projects/**` → update
-  [projects/INDEX.md](projects/INDEX.md) (and the per-project
-  `projects/<name>/INDEX.md` if you have created one)
-- New file under `sources/**` → update
-  [sources/INDEX.md](sources/INDEX.md) (and per-course index if used)
-- New file under `inbox/**` → update
-  [inbox/INDEX.md](inbox/INDEX.md) if it changes the snapshot
-- New file under `output/**` → update
-  [output/INDEX.md](output/INDEX.md)
-- Whole new project or course folder → update the zone index plus
-  root [index.md](index.md) if a new zone appears
+**Every `.md` file must appear in exactly one INDEX.md — the most
+specific one for its location.** Files at any depth (Nivel 4, 5, 6, n)
+are listed in their parent project/course Nivel 3 INDEX using the full
+relative path from that INDEX. There is no Nivel 4+ of indexes.
 
-Exceptions (never listed in any INDEX.md): `CLAUDE.md`, `README.md`,
-`INBOX.md`, `log.md`, `index.md`, `INDEX.md` itself, and everything
-under `.claude/`.
+### Routing table
+
+| New file path | Update this INDEX |
+|---|---|
+| `wiki/<...>.md` | [wiki/INDEX.md](wiki/INDEX.md) (correct section) |
+| `projects/<name>/<...>.md` | `projects/<name>/INDEX.md` (project Nivel 3) |
+| `sources/courses/<name>/<...>.md` | `sources/courses/<name>/INDEX.md` (course Nivel 3) |
+| `inbox/<file>.md` | [inbox/INDEX.md](inbox/INDEX.md) if it changes the snapshot |
+| `output/<file>.md` | [output/INDEX.md](output/INDEX.md) |
+
+**Whole new project or course folder** → create its Nivel 3 `INDEX.md`
+(using [.claude/templates/project-index.md](.claude/templates/project-index.md)
+or [.claude/templates/course-index.md](.claude/templates/course-index.md))
+AND update the zone index. Update root [index.md](index.md) only when
+a whole new zone appears.
+
+### Entry format
+
+```
+- **[filename](full/relative/path)** — short description. `kw1, kw2, kw3`
+```
+
+- **Top-level files** of a project/course get a short one-line description + keywords.
+- **Deep files** (Nivel 4+) can drop the description if the filename is self-explanatory — keywords alone are enough.
+- **Keywords:** 2–5 terms, lowercase, comma-separated, **only terms NOT present in the filename** (avoids noise). Keywords are how `/query` finds the file via grep.
+
+### Exclusions (never listed in any INDEX.md)
+
+- `INDEX.md` itself (recursion)
+- Root-of-repo: `CLAUDE.md`, `index.md`, `log.md`
+- Everything under `.claude/` (framework layer, separate concern)
+- Everything under `.git/`, `node_modules/`, system files (`.DS_Store`, `.gitkeep`, etc.)
+- `processed/` folder **contents** (post-ingest historical — browsable via filesystem; the folder itself is mentioned with a file count)
+- Binary files **without** a `.meta.md` sidecar, unless covered by a folder-README (see below)
+
+**NOT excluded — listed in Nivel 3 INDEX:** `README.md`, `CLAUDE.md`,
+`TODO.md`, `INBOX.md` of each project/course (they are content that
+describes that project/course).
+
+### Binary assets — three rules
+
+1. **Binary with `.meta.md` sidecar** → index the **sidecar** (describes the binary + its metadata).
+2. **Folder-README aggregation** — if a folder contains many binaries following a convention (naming, sizes, outputs) and the folder has its own `README.md` describing the convention, index **only the README.md** and mention the folder shape with a one-line summary. No individual binary entries.
+3. **Loose persistent binary** (no sidecar, no folder-README) → index directly with filename + one type keyword (`imagen | video | pdf | audio`). If it ever becomes bulk, add a README.md + switch to aggregation.
+
+Transient / WIP binaries are not listed; `/lint` flags binaries not covered by any of the three rules as "sidecar debt".
 
 ## Frontmatter Rule
 Every new .md file must include YAML frontmatter per .claude/rules/frontmatter.md.

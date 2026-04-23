@@ -28,6 +28,17 @@ Example structure:
   `TODO.md` (study tracker), `INSIGHTS.md` (promotion candidates),
   `notes/`, `inbox/`.
 
+## Nivel 3 — Per-course indexes
+
+When a course has more than a handful of notes, create its own
+`INDEX.md` at `sources/courses/<name>/INDEX.md` listing notes,
+assignments, resources, and insights. Update the entry above to link
+to the per-course index.
+
+Use the template at
+[.claude/templates/course-index.md](../.claude/templates/course-index.md)
+— copy it, rename to `INDEX.md`, fill in the placeholders.
+
 ## Articles — [articles/](articles/)
 
 _(Source articles folder. Populate as you capture them.)_

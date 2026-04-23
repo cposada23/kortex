@@ -41,17 +41,18 @@ These files route differently from generic inbox items:
 1. Read the frontmatter. Confirm `type: idea` and the required fields
    are present (`title`, `status`, `angle`, `target_channel`).
 2. **Route by `target_channel`, not by the inbox path.** An idea in
-   the root inbox with `target_channel: <project>` belongs to that
+   `/inbox/` with `target_channel: milo-ia` belongs to the Milo IA
    project regardless of which inbox it was dropped in.
 3. Do NOT re-interpret the idea. The frontmatter is the source of
-   truth — the ingest's job is to move the file and log the action,
-   not to re-generate angle/why_it_works/status.
-4. Destination is project-specific. Follow the target project's
-   convention for where ideas land after triage (see that project's
-   `CLAUDE.md`).
+   truth — the ingest's job is to move the file and append a BANK/log
+   entry, not to re-generate angle/why_it_works/status.
+4. Destination is project-specific. For `target_channel: milo-ia`,
+   follow the Milo IA ideation-bank flow (see that project's
+   CLAUDE.md). For other projects, deposit into that project's
+   appropriate folder based on `status`.
 5. If `target_channel: cross-project` or the field is missing, leave
-   the file in the root inbox and flag it `needs-routing` in the
-   ingest report for manual triage.
+   the file in `/inbox/` and flag it `needs-routing` in the ingest
+   report for manual triage.
 
 ## Workflow — Files (PDFs, articles, transcripts, etc.)
 
@@ -79,7 +80,8 @@ These files route differently from generic inbox items:
    - Summary field: one sentence stating what and why it matters
    - Related links to connected existing pages
 7. Move the source file to the `processed/` subfolder in the same inbox
-8. Update index.md with any new pages created
+8. **Update the INDEX hierarchy** so the new page is discoverable
+   (see "Index update rule" below)
 9. Append an entry to log.md: `## [DATE] ingest | [Page Title] (from [inbox location])`
 10. Update related existing pages if the new content connects to them
 
@@ -89,9 +91,62 @@ These files route differently from generic inbox items:
 2. Apply relevance filter (general inbox only — course/project skip it)
 3. Apply destination rule (same as files): general/course → /wiki, project → project folder
 4. Create atomic page if relevant (distillation_level: 1)
-5. Update index.md and log.md
-6. Mark item PROCESSED in the corresponding INBOX.md
-7. Report results
+5. **Update the INDEX hierarchy** (see rule below)
+6. Update log.md
+7. Mark item PROCESSED in the corresponding INBOX.md
+8. Report results
+
+## Index update rule
+
+Every new `.md` file and every new persistent binary created during
+ingest must be registered in the most specific INDEX.md for its
+location — **before** the ingest report is generated. This closes the
+first of three layers in the hierarchical index auto-update model.
+See root [CLAUDE.md](../../CLAUDE.md) → Auto-index Rule for the
+authoritative spec (routing table, entry format, exclusions, binary
+rules). The rules below are the ingest-specific application.
+
+### Entry format
+
+```
+- **[filename](full/relative/path)** — short description. `kw1, kw2, kw3`
+```
+
+- **Top-level files** of a project/course (directly under the Nivel 3 folder) get a one-line description + keywords.
+- **Files at depth 4+** (inside subfolders) can drop the description when the filename is self-explanatory — keywords alone are enough.
+- **Keywords:** 2–5 terms, lowercase, comma-separated, **only terms NOT already in the filename**. Keywords are how `/query` finds the file via grep.
+
+Pull the description from the page's frontmatter `summary:` or `title:`
+field, or the first prose line of its body. Pull keyword candidates
+from frontmatter `tags:` (strip layer tags like `capa/X-*`).
+
+### Routing
+
+| New file path | Update this INDEX |
+|---|---|
+| `wiki/<sub>/<page>.md` | [wiki/INDEX.md](../../wiki/INDEX.md) (correct section) |
+| `projects/<name>/<...>/<page>.md` | `projects/<name>/INDEX.md` (project Nivel 3) |
+| `sources/courses/<name>/<...>/<page>.md` | `sources/courses/<name>/INDEX.md` (course Nivel 3) |
+| `output/<page>.md` | [output/INDEX.md](../../output/INDEX.md) |
+
+Zone-level indexes (`projects/INDEX.md`, `sources/INDEX.md`) are
+**only** touched when structure changes at the zone level — a new
+project folder, a new course folder, or a new zone. Otherwise go
+straight to the Nivel 3 INDEX.
+
+### Binary handling during ingest
+
+If the file being ingested is a binary (image, video, pdf, audio):
+
+1. **Prefer a sidecar** — generate a `<filename>.meta.md` sidecar in the same folder describing the asset (see "Asset sidecar pattern" below). Index the sidecar in the Nivel 3 INDEX.
+2. **Folder-README aggregation** — if the destination folder already has a `README.md` describing the convention and the new binary fits that convention (e.g. a new size of an existing logo), **do not add a separate entry**. The folder-README already covers it.
+3. **Loose persistent binary** (no sidecar, no folder-README) — index the binary directly with its filename + one type keyword (`imagen | video | pdf | audio`).
+
+### Placement + hygiene
+
+- **Place in the right section** of the parent INDEX.md. Section structure is defined by the INDEX itself (areas / concepts / tools / playbooks / decisions / references for wiki; top-level files / subfolders for project & course indexes). Do not invent new sections — flag if none fits.
+- **Don't touch unrelated entries.** The goal is append-only during ingest. Restructuring happens during `/lint`.
+- **Skip the zone index** if the new page is inside an existing subfolder already represented in the Nivel 3 INDEX. The Nivel 3 INDEX is the source of truth.
 
 ## Processed folder maintenance
 
@@ -113,6 +168,11 @@ sources/courses/[name]/inbox:
 
 projects/[name]/inbox:
 - X files processed → Y pages
+
+INDEX updates:
+- wiki/INDEX.md: X new entries
+- projects/<name>/INDEX.md: X new entries
+- ...
 
 Total: X items processed, Y pages created, Z updated, W skipped
 ```
