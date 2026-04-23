@@ -8,25 +8,36 @@ Run at the start of every Claude Code session.
 
 ## Steps
 
-0. **Staleness check** — Before reading any session file, find the most recent
+0. **Sync with remote** — Before reading any local state, pull `main` so the
+   session starts on the latest commits (another machine, Claude.ai mobile,
+   another flow may have pushed since last session).
+   - Run `git status` first. If current branch is NOT `main` (e.g., mid-`/safe-change`),
+     skip the pull and note in the bridge output: "Skipped pull — on branch [X]".
+   - If on `main`: run `git fetch origin && git pull origin main --ff-only`.
+   - If `--ff-only` fails (local diverged from remote), stop and surface the
+     conflict so the owner decides how to reconcile. Do NOT attempt a merge.
+   - If the pull brought material changes, include a
+     "**Changes pulled from remote:** N files updated" line in the bridge output.
+
+1. **Staleness check** — Before reading any session file, find the most recent
    file in `output/sessions/`. If the most recent session file is NOT from today
    or yesterday, show:
    "No session file since [DATE]. Want to run /bridge-recovery? (y/n)"
-   - If **y**: run /bridge-recovery, then continue from step 1 (skip step 0 on re-entry)
-   - If **n**: continue with normal bridge (the old session file will be read in step 4
+   - If **y**: run /bridge-recovery, then continue from step 2 (skip steps 0 and 1 on re-entry)
+   - If **n**: continue with normal bridge (the old session file will be read in step 5
      but the user has been warned it may be stale)
 
-1. Read `CLAUDE.md` — get schema and strategic orientation
-2. Read `TODO.md` (root) — get full picture of all areas and their status
-3. For every entry in the root TODO where status contains "in progress" or "blocked",
+2. Read `CLAUDE.md` — get schema and strategic orientation
+3. Read `TODO.md` (root) — get full picture of all areas and their status
+4. For every entry in the root TODO where status contains "in progress" or "blocked",
    read that area's TODO file in full
-4. Read today's session file if it exists (`output/sessions/YYYY-MM-DD.md`)
-5. Read `log.md` — last 5 entries for recent context
-6. Scan for `artifacts.md` files in active projects (those with in-progress items).
+5. Read today's session file if it exists (`output/sessions/YYYY-MM-DD.md`)
+6. Read `log.md` — last 5 entries for recent context
+7. Scan for `artifacts.md` files in active projects (those with in-progress items).
    For each artifact entry, check if `local_path` exists on disk.
    If missing, add a warning to the bridge output under **Missing artifacts**.
 
-7. **Resurface** — Find the wiki/ page with the oldest `updated:` frontmatter date.
+8. **Resurface** — Find the wiki/ page with the oldest `updated:` frontmatter date.
    Show: title, path, days since last update.
    Ask: "Still accurate? (y = bump updated date, n = flag for review, skip = move on)"
    One page per session — keeps the wiki alive without dedicated review sprints.
@@ -36,6 +47,7 @@ Run at the start of every Claude Code session.
 ```
 ## Session Bridge — [DATE]
 
+**Changes pulled from remote:** [N files updated — only if pull brought changes; omit otherwise]
 **Last session:** [date + topic from log.md]
 **Active work:**
   [list each in-progress item across all areas, with area name]

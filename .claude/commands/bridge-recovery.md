@@ -46,7 +46,7 @@ Review before trusting.
 
 7. After writing, say:
    "Recovery written. Running /bridge now with fresh state."
-   Then continue with the normal /bridge steps (skip step 0 staleness check).
+   Then continue with the normal /bridge steps (skip step 0 sync and step 1 staleness check).
 
 ## Notes
 
