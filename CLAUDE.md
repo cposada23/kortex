@@ -50,6 +50,14 @@ UIs, metrics, legal events) require live web search with a recent date.
 External AI output is a signal, not verification. See .claude/rules/verification.md
 for full rules and categories.
 
+## Write Authority Rule
+Structural writes to your Kortex instance pass through Claude Code only
+(CLI, VS Code extension, or Desktop tab — all three count equally).
+Claude.ai chat and Cowork may read and (once you have verified GitHub
+write-sync) propose captures to your inbox; they do not write directly
+to knowledge graph structure or schema. See .claude/rules/write-authority.md
+for the full rule and rationale.
+
 ## Commands
 On-demand — loaded when invoked, not on every conversation.
 - .claude/commands/ingest.md — distributed inbox processing
