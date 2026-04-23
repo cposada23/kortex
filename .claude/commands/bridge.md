@@ -24,20 +24,34 @@ Run at the start of every Claude Code session.
    or yesterday, show:
    "No session file since [DATE]. Want to run /bridge-recovery? (y/n)"
    - If **y**: run /bridge-recovery, then continue from step 2 (skip steps 0 and 1 on re-entry)
-   - If **n**: continue with normal bridge (the old session file will be read in step 5
+   - If **n**: continue with normal bridge (the old session file will be read in step 6
      but the user has been warned it may be stale)
 
 2. Read `CLAUDE.md` — get schema and strategic orientation
-3. Read `TODO.md` (root) — get full picture of all areas and their status
-4. For every entry in the root TODO where status contains "in progress" or "blocked",
+3. Read `index.md` (Nivel 1 overview) — the entry point to the hierarchical
+   indexes. Then, based on where active work lives (inferred from step 4
+   below), read the zone indexes relevant to that work:
+   - Active work in a project → read `projects/INDEX.md`
+   - Active work touches synthesis → read `wiki/INDEX.md`
+   - Active work is course consumption → read `sources/INDEX.md`
+   - Inbox triage pending → read `inbox/INDEX.md`
+   - Output archaeology (finding an old session / audit / handoff) →
+     read `output/INDEX.md`
+
+   Do NOT read all zone indexes by default. Target only what the session
+   needs. If the next action is unclear until step 4 completes, defer the
+   zone-index reads until after TODOs are known.
+
+4. Read `TODO.md` (root) — get full picture of all areas and their status
+5. For every entry in the root TODO where status contains "in progress" or "blocked",
    read that area's TODO file in full
-5. Read today's session file if it exists (`output/sessions/YYYY-MM-DD.md`)
-6. Read `log.md` — last 5 entries for recent context
-7. Scan for `artifacts.md` files in active projects (those with in-progress items).
+6. Read today's session file if it exists (`output/sessions/YYYY-MM-DD.md`)
+7. Read `log.md` — last 5 entries for recent context
+8. Scan for `artifacts.md` files in active projects (those with in-progress items).
    For each artifact entry, check if `local_path` exists on disk.
    If missing, add a warning to the bridge output under **Missing artifacts**.
 
-8. **Resurface** — Find the wiki/ page with the oldest `updated:` frontmatter date.
+9. **Resurface** — Find the wiki/ page with the oldest `updated:` frontmatter date.
    Show: title, path, days since last update.
    Ask: "Still accurate? (y = bump updated date, n = flag for review, skip = move on)"
    One page per session — keeps the wiki alive without dedicated review sprints.

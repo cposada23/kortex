@@ -1,5 +1,5 @@
 ---
-title: "Wiki Index"
+title: "Kortex — Master Index"
 tags:
   - capa/2-wiki
   - tipo/index
@@ -9,72 +9,53 @@ language: en
 updated: YYYY-MM-DD
 ---
 
-# Wiki Index
+# Kortex — Master Index
 
-Master catalog of this knowledge base.
-Updated by Claude Code after every ingest or new page creation.
-Read this first when looking for relevant content.
+Nivel 1 of the hierarchical index system. Entry point to your
+knowledge graph. Each zone has its own `INDEX.md` (Nivel 2) with rich
+detail of what lives there — navigate to the relevant zone index
+before opening individual files.
 
 ---
 
-<!-- SECTION: Capture -->
-## Capture
+<!-- SECTION: Zones -->
+## Zonas (Nivel 2)
 
-| File | Summary |
-|---|---|
-| inbox/INBOX.md | Quick capture inbox — drop ideas here, processed with /ingest |
+- **[projects/INDEX.md](projects/INDEX.md)** — Your active execution
+  projects (Layer 3). One sub-folder per project, each with its own
+  `CLAUDE.md`, `TODO.md`, and structure. Replace with a 1–2 line
+  description per project once you have them.
 
-## TODO Files
+- **[wiki/INDEX.md](wiki/INDEX.md)** — Synthesized knowledge (Layer 2).
+  Atomic pages organized into areas (ongoing domains), concepts
+  (discrete knowledge), tools (catalog), playbooks (reusable
+  workflows), decisions (ADRs), references (operational guides).
 
-Hierarchical TODO system — root index points to per-area TODO files.
+- **[sources/INDEX.md](sources/INDEX.md)** — Immutable source material
+  (Layer 1). Course notes, transcripts, original articles. Do not
+  rewrite — synthesis lives in `/wiki`.
 
-| File | Summary |
-|---|---|
-| TODO.md | Master index — pointers and status counts for all areas |
-| projects/my-first-project/TODO.md | Example project tasks |
-| sources/courses/my-first-course/TODO.md | Example course progress |
-| wiki/TODO.md | Wiki-level and general tasks |
+- **[inbox/INDEX.md](inbox/INDEX.md)** — Pending captures. Root inbox
+  + per-project + per-course inboxes. `/ingest` routes items by
+  `target_channel` in frontmatter, not by physical path.
 
-<!-- SECTION: Output -->
-## Output
+- **[output/INDEX.md](output/INDEX.md)** — Ephemeral files: session
+  notes, handoffs, audits, lint reports, drafts, schema history. No
+  durable knowledge — that belongs in `/wiki`.
 
-### Sessions
-| File | Summary |
-|---|---|
-| *(no sessions yet — run `/bridge-out` at end of your first session)* | |
+---
 
-<!-- SECTION: Wiki -->
-## Wiki
+<!-- SECTION: Schema -->
+## Schema
 
-### Concepts
-| File | Summary |
-|---|---|
-| [wiki/concepts/second-brain.md](wiki/concepts/second-brain.md) | Methodology for externalizing knowledge into a trusted digital system |
-| [wiki/concepts/distillation-levels.md](wiki/concepts/distillation-levels.md) | 5-level scale (0–4) tracking how processed a piece of knowledge is |
+Kortex v1.0. Architecture and rules: [CLAUDE.md](CLAUDE.md). Always-loaded
+rules: [.claude/rules/](.claude/rules/). On-demand commands:
+[.claude/commands/](.claude/commands/).
 
-### References
-| File | Summary |
-|---|---|
-| [wiki/references/llm-wiki-pattern.md](wiki/references/llm-wiki-pattern.md) | Architecture where an LLM maintains a persistent compiled wiki |
+## TODO
 
-<!-- SECTION: Sources -->
-## Sources
+[TODO.md](TODO.md) — master TODO that points to per-project `TODO.md`.
 
-| File | Summary |
-|---|---|
-| *(add your first course or source material here)* | |
+## Log
 
-<!-- SECTION: Projects -->
-## Projects
-
-### My First Project
-| File | Summary |
-|---|---|
-| [projects/my-first-project/references/project-brief.md](projects/my-first-project/references/project-brief.md) | Example project brief — replace with your own project |
-
-<!-- SECTION: Archive -->
-## Archive
-
-| File | Summary |
-|---|---|
-| *(nothing archived yet)* | |
+[log.md](log.md) — chronological operation log (append-only).

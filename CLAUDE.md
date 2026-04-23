@@ -32,8 +32,25 @@ Layer 3 — The Schema: this file + .claude/rules/ + .claude/commands/
 - log.md → chronological operation log
 
 ## Auto-index Rule
-Every new .md file must be added to index.md immediately.
-No exceptions except CLAUDE.md and README.md files.
+Every new .md file must be added to the most specific INDEX.md for
+its location, immediately. The repo uses a hierarchical index system:
+
+- New file under `wiki/**` → update [wiki/INDEX.md](wiki/INDEX.md)
+- New file under `projects/**` → update
+  [projects/INDEX.md](projects/INDEX.md) (and the per-project
+  `projects/<name>/INDEX.md` if you have created one)
+- New file under `sources/**` → update
+  [sources/INDEX.md](sources/INDEX.md) (and per-course index if used)
+- New file under `inbox/**` → update
+  [inbox/INDEX.md](inbox/INDEX.md) if it changes the snapshot
+- New file under `output/**` → update
+  [output/INDEX.md](output/INDEX.md)
+- Whole new project or course folder → update the zone index plus
+  root [index.md](index.md) if a new zone appears
+
+Exceptions (never listed in any INDEX.md): `CLAUDE.md`, `README.md`,
+`INBOX.md`, `log.md`, `index.md`, `INDEX.md` itself, and everything
+under `.claude/`.
 
 ## Frontmatter Rule
 Every new .md file must include YAML frontmatter per .claude/rules/frontmatter.md.
