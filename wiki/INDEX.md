@@ -43,6 +43,12 @@ Catalog of AI tools by category. Populate as you adopt tools.
 
 Reusable workflows — promoted from validated practice in projects.
 
+- **[playbooks/claude-project-github-sync.md](playbooks/claude-project-github-sync.md)** —
+  Setup of a Claude.ai Project with GitHub sync as read-only knowledge
+  source. Eliminates manual re-upload of repo files. Covers granular
+  file selection, sync cadence, private-repo gotcha, and mobile
+  limitation (must use mobile web, not the app). `github, sync, knowledge, read-only`
+
 ## Decisions — [decisions/](decisions/)
 
 Architecture Decision Records for your framework and projects.
