@@ -50,7 +50,10 @@ Restrictions: [what to avoid]
 
 ## Canonical sources
 
-Master guide: wiki/playbooks/prompts/PROMPT_GUIA.md
-Image tool: wiki/playbooks/prompts/HERRAMIENTA_PROMPT_IMAGEN_IA.md
-Aesthetic tool: wiki/playbooks/prompts/HERRAMIENTA_ESTETICA_IMAGEN_IA.md
-Sandbag character prompts: projects/sandbag-fuerza-tres-dias/prompts/imagen-ia/
+Master guide: `wiki/playbooks/prompts/PROMPT_GUIA.md`
+Image tool: `wiki/playbooks/prompts/HERRAMIENTA_PROMPT_IMAGEN_IA.md`
+Aesthetic tool: `wiki/playbooks/prompts/HERRAMIENTA_ESTETICA_IMAGEN_IA.md`
+Per-project character prompts: each project that uses recurring
+characters (humans, mascots, products) keeps its canonical prompts in
+`projects/<project>/prompts/imagen-ia/` so they stay in version control
+alongside the project they represent.
