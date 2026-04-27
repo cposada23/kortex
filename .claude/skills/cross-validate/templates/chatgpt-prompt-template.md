@@ -87,8 +87,9 @@ Una pregunta que el owner debería responder antes de shippear.
 
 ### Dimensiones de scoring por tipo de input
 
-- `type: project` (pieza Milo IA): Hook / Visual / Multi-formato /
-  Automatiza / Audiencia (5 × 10)
+- `type: project` (project-specific work — e.g. content piece,
+  product spec, brief): use the 5 dimensions defined by that project
+  for its scoring (declared in the project's CLAUDE.md or playbook).
 - `type: decision` (wiki): Reversibilidad / Blast radius / Coste / Fit
   con framework / Time-to-validate
 - `type: idea`: Hook / Differentiation / Executable today / Audience

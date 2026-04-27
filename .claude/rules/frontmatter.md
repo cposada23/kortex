@@ -75,7 +75,7 @@ Required on all wiki pages in /wiki. Used by /lint to track distillation debt.
 | 1 | First pass | Read, key points identified |
 | 2 | Distilled | Essential content in own words |
 | 3 | Synthesized | Connected to other pages, implications drawn |
-| 4 | Expression-ready | Can generate Milo IA content directly from this page |
+| 4 | Expression-ready | Can directly drive an output (published content, product decision, deploy spec) from this page |
 
 ## Layer tags (required in tags field)
 

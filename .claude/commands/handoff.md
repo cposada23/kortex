@@ -123,10 +123,10 @@ productively from this alone. Must cover, in prose (not bullets):
 5. The immediate next action.
 
 **MANDATORY when MID-SAFE-CHANGE:** the first sentence must name the
-branch and warn that a /safe-change is pending YES/NO — e.g. "Estás
-en rama `feature/...` a medio /safe-change esperando YES/NO; no
-commitees ni hagas merge hasta que Camilo decida." This survives the
-user copy-pasting only the RESUME PROMPT and skipping the rest.
+branch and warn that a /safe-change is pending YES/NO — e.g.
+"You are on branch `feature/...` mid /safe-change awaiting YES/NO; do
+not commit or merge until the user decides." This survives the user
+copy-pasting only the RESUME PROMPT and skipping the rest.
 
 Err on the side of more context. 400 words the user's eyes skim once
 is much cheaper than 50 messages of the new chat rediscovering the

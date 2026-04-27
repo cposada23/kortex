@@ -26,12 +26,11 @@ CLAUDE.md files to discover what belongs where.
       what the project is and what files matter
    c. Read project-instructions.md if it exists
       in that project folder
-   d. Read projects/project-context.md (now a hub).
-      Follow its wikilinks to read the relevant atomic pages:
-      - projects/sandbag-fuerza-tres-dias/references/brand-context.md → for Sandbag brief
-      - projects/ai-influencer-nagual-arquetipo/references/character-context.md → for Nagual brief
-      - projects/milo-ia/references/channel-context.md → for Milo IA brief
-      - wiki/references/marketing-framework-context.md → for any brief needing strategy context
+   d. Follow the project CLAUDE.md to discover which
+      context files matter for this project's brief
+      (e.g. brand context, audience context, channel
+      context, strategy frameworks). Read each one the
+      CLAUDE.md flags as relevant.
    e. Read any other files the CLAUDE.md identifies
       as important for that project
 
@@ -64,13 +63,27 @@ CLAUDE.md files to discover what belongs where.
    - If a new folder appears in /projects/ that has
      no brief yet → generate one automatically
 
-6. Tell the user which briefs were updated:
-   "Updated briefs:
-   - [project] → re-upload
-     projects/[project-name]/references/[file] to Claude.ai Project
-   No changes needed: [other projects]"
+6. Check Claude.ai Projects sync triggers:
+   - Read `wiki/references/claude-ai-projects-roster.md` if it exists
+     in your Kortex instance.
+   - For each regenerated brief path, intersect against the roster's
+     Active sync triggers.
+   - For each Project whose trigger matched ≥1 regenerated brief,
+     surface it in the confirm message.
+   - If the roster file does NOT exist, skip the Claude.ai sync line.
 
-7. Append entry to log.md
+7. Tell the user which briefs were updated:
+   "Updated briefs:
+   - [project] → projects/[project-name]/references/[file] regenerated
+   No changes needed: [other projects]
+
+   Claude.ai Projects to sync (click 'Sync now' in Project Knowledge):
+   - [list each Project from Step 6, or 'None — no synced briefs changed']
+
+   Note: GitHub sync is read-only — clicking syncs the latest commit.
+   No manual file upload needed."
+
+8. Append entry to log.md
 
 ## Why no hardcoded file lists
 This command uses index.md and CLAUDE.md files

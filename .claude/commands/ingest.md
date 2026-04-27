@@ -41,15 +41,15 @@ These files route differently from generic inbox items:
 1. Read the frontmatter. Confirm `type: idea` and the required fields
    are present (`title`, `status`, `angle`, `target_channel`).
 2. **Route by `target_channel`, not by the inbox path.** An idea in
-   `/inbox/` with `target_channel: milo-ia` belongs to the Milo IA
+   `/inbox/` with `target_channel: <project-key>` belongs to that
    project regardless of which inbox it was dropped in.
 3. Do NOT re-interpret the idea. The frontmatter is the source of
    truth — the ingest's job is to move the file and append a BANK/log
    entry, not to re-generate angle/why_it_works/status.
-4. Destination is project-specific. For `target_channel: milo-ia`,
-   follow the Milo IA ideation-bank flow (see that project's
-   CLAUDE.md). For other projects, deposit into that project's
-   appropriate folder based on `status`.
+4. Destination is project-specific. For each `target_channel` value,
+   follow the destination conventions defined in that project's
+   `CLAUDE.md` (e.g. an ideation-bank flow, a piece-specific folder,
+   or a status-based bucket).
 5. If `target_channel: cross-project` or the field is missing, leave
    the file in `/inbox/` and flag it `needs-routing` in the ingest
    report for manual triage.

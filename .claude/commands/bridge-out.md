@@ -87,6 +87,22 @@ If sync-relevant files changed, add a warning to the session notes under
 **Artifact sync needed** and remind the user in the confirmation message:
 "Artifact [name] may need syncing — [list changed trigger files]."
 
+### Step 7b — Check Claude.ai Projects sync triggers
+
+Read `wiki/references/claude-ai-projects-roster.md` if it exists in
+your Kortex instance. For each Project under the roster's Active
+section, intersect its `Sync trigger` patterns against ALL files
+changed during this session (`git diff --name-only` from start of
+session to now, including any `/safe-change` merges done earlier).
+
+For each Project whose triggers matched ≥1 changed file, add a line
+to the session notes under **Claude.ai Projects to sync** AND surface
+the same list in the Step 9 confirm message so the user knows to click
+'Sync now' before next mobile session.
+
+If the roster file does NOT exist, skip this step entirely (means no
+Projects active yet — no reminder needed).
+
 ### Step 8 — Commit and push
 
 Stage everything this command modified or created in the previous
@@ -107,7 +123,16 @@ A single `git push` after the bridge-out commit handles both.
 
 ### Step 9 — Confirm
 
-Tell the user: "Bridge written, committed, and pushed to origin. TODOs updated. See you next session."
+Tell the user: "Bridge written, committed, and pushed to origin. TODOs updated."
+
+If Step 7b found Projects whose triggers matched, append:
+"Claude.ai Projects to sync (click 'Sync now' in Project Knowledge before next mobile session):
+- [list each Project + count of matched files]
+GitHub sync is read-only; no manual file upload needed."
+
+If Step 7b found nothing or was skipped, omit the Claude.ai line.
+
+End with: "See you next session."
 
 ## Rules
 

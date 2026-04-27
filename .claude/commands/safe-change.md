@@ -39,7 +39,18 @@ Use this command for any significant file operation.
    - Regenerate any affected project briefs
    - Add list of updated briefs to the final
      confirmation message
-10. Confirm:
+10. Check Claude.ai Projects sync triggers:
+    - Read `wiki/references/claude-ai-projects-roster.md` if it exists
+      in your Kortex instance.
+    - Run `git diff --name-only main~1 main` to get files in this merge.
+    - For each Project under the roster's Active section, intersect its
+      `Sync trigger` patterns against the changed files.
+    - Build a list of Projects whose triggers matched ≥1 changed file.
+    - If the roster file does NOT exist, skip — output "Claude.ai
+      Projects sync: roster not configured (create
+      wiki/references/claude-ai-projects-roster.md to enable reminders)".
+
+11. Confirm:
    "Merged and pushed to main successfully.
 
    log.md updated.
@@ -50,11 +61,13 @@ Use this command for any significant file operation.
    Project briefs updated:
    - [list any briefs that were regenerated]
 
-   Re-upload to Claude.ai Projects:
-   - [list which brief files to re-upload]
+   Claude.ai Projects to sync (click 'Sync now' in Project Knowledge):
+   - [list each Project from Step 10 + count of matched files, or
+      'None — no synced files changed']
 
-   No re-upload needed if briefs unchanged."
-11. If NO:
+   Note: GitHub sync is read-only — clicking syncs the latest commit.
+   No manual file upload needed."
+12. If NO:
    - Discard ALL changes and restore to pre-branch state:
      git checkout main -- .
      git clean -fd
